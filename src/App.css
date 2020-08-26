@@ -1,38 +1,55 @@
-.App {
-  text-align: center;
+img {
+  max-width: 25%;
+  max-height: 25%;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#hideDetails {
+  width: 150px;
+  background-color: black;
+  color: dodgerblue;
+  padding: 5px;
+  border-radius: 20px;
+  border: none;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+  background-image: url('img/deathstar.png');
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+#other {
+  padding: 10%;
+}
+h1,
+h2 {
   color: white;
 }
-
-.App-link {
-  color: #61dafb;
+#content {
+  display: flex;
+  align-items: left;
+  justify-content: left;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#traits {
+  font-weight: bold;
+}
+li {
+  list-style: none;
+  color: dodgerblue;
+  font-size: 1.2em;
+  border: solid 1px lightgray;
+  padding: 5px;
+  background-color: black;
+}
+a:hover,
+#hideDetails:hover,
+#liurl:hover,
+#namelist:hover,
+#namelistli:hover {
+  background-color: dodgerblue;
+  color: white;
+}
+a {
+  color: dodgerblue;
+  background-color: black;
+  font-size: 1.2em;
+}
+#namelist {
+  text-decoration: none;
+  border: none;
 }
