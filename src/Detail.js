@@ -6,7 +6,7 @@ export default function Detail({ person }) {
   const data = [],
     dataInfo = [];
   const moviePoster = useRef(null);
-  const movieTitle = useRef(null);
+  // const movieTitle = useRef(null);
 
   for (let key in person) {
     if (key === 'name') {
@@ -31,7 +31,7 @@ export default function Detail({ person }) {
       //   dataInfo.push(person[key][i]);
       //   callApi(person[key][i]);
       // }
-      // console.log(person[key]);
+      console.log(person[key]);
       dataInfo.push(person[key][0]);
       callApi(person[key][0]);
     }
@@ -47,8 +47,9 @@ export default function Detail({ person }) {
         },
       });
       // console.log(omdb.data);
-      movieTitle.current = res.data.title;
-      moviePoster.current.setAttribute('src', omdb.data.Poster);
+      if (moviePoster.current)
+        moviePoster.current.setAttribute('src', omdb.data.Poster);
+      // movieTitle.current = res.data.title;
     } catch (err) {
       console.error('There was a problem fetching:', err);
     }
@@ -85,8 +86,9 @@ export default function Detail({ person }) {
                     rel="noopener noreferrer"
                   >
                     {value}
-                    <br />
-                    {movieTitle.current} <br />
+                    <br /> <br />
+                    {/* <p ref={movieTitle}></p> */}
+                    {/* {movieTitle.current} <br /> */}
                     <img ref={moviePoster} src="" alt="" />
                   </a>
                 ) : value.includes('planets') ? (
