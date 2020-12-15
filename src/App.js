@@ -24,12 +24,16 @@ class App extends React.Component {
       this.setState({ id });
     }
     try {
-      // const res = await axios.get(`${domain}`);
-      const res = await axios.get(`${domain}?page=2`);
-      const starwars = res.data;
+      const res = await axios.get(`${domain}`);
+      const res2 = await axios.get(`${domain}?page=2`);
+      const resultsAll = [];
+      resultsAll.push(res.data.results);
+      resultsAll.push(res2.data.results);
+      const starwars = resultsAll.flat();
+
       const people = [];
-      for (let i = 0; i < starwars.results.length; i++) {
-        people[i] = starwars.results[i];
+      for (let i = 0; i < starwars.length; i++) {
+        people[i] = starwars[i];
         people[i].id = i + 1;
       }
       this.setState({ people });
@@ -45,7 +49,6 @@ class App extends React.Component {
         <h1>Star Wars - React</h1>
         <div id="content">
           <List people={people} />
-          <div id="colpad" />
           {person ? <Detail person={person} /> : null}
         </div>
       </div>

@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import axios from 'axios';
 
-async function callApi(movie) {
+async function callApi(res) {
   try {
-    const res = await axios.get(movie);
     const omdb = await axios.get('http://www.omdbapi.com/', {
       params: {
         apikey: 764452 + 'e7',
@@ -21,14 +20,17 @@ function hideDetails() {
   window.location = '#';
 }
 
-export default function Detail({ person, close }) {
+export default function Detail({ person }) {
   const [personDetail, setPersonDetail] = useState({});
-
+  // const title = [];
   const getPosters = async (details) => {
     const posters = [];
+
     for (let i = 0; i < details.films.length; i++) {
       const film = details.films[i];
-      posters.push(callApi(film));
+      const res = await axios.get(film);
+      // title.push(res.data.title);
+      posters.push(callApi(res));
     }
 
     details.films = await Promise.all(posters);
@@ -55,7 +57,7 @@ export default function Detail({ person, close }) {
         <ul>
           {Object.keys(personDetail).map((value, index) => {
             return (
-              <li id="traits" key={index}>
+              <li key={index}>
                 {value}:{' '}
                 {value.includes('films')
                   ? personDetail.films.map((url) => (
