@@ -1,36 +1,34 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import axios from "axios";
 
-async function callApi(res) {
+async function callApi(film) {
   try {
-    const omdb = await axios.get('http://www.omdbapi.com/', {
+    const res = await axios.get(film);
+    const omdb = await axios.get("http://www.omdbapi.com/", {
       params: {
-        apikey: 764452 + 'e7',
+        apikey: 764452 + "e7",
         t: res.data.title,
         y: res.data.release_date.substring(0, 4),
       },
     });
     return omdb.data.Poster;
   } catch (err) {
-    console.error('There was a problem fetching:', err);
+    console.error("There was a problem fetching:", err);
   }
 }
 function hideDetails() {
-  window.location = '#';
+  window.location = "#";
 }
 
 export default function Detail({ person }) {
   const [personDetail, setPersonDetail] = useState({});
-  // const title = [];
   const getPosters = async (details) => {
     const posters = [];
 
     for (let i = 0; i < details.films.length; i++) {
       const film = details.films[i];
-      const res = await axios.get(film);
-      // title.push(res.data.title);
-      posters.push(callApi(res));
+      posters.push(callApi(film));
     }
 
     details.films = await Promise.all(posters);
@@ -58,8 +56,8 @@ export default function Detail({ person }) {
           {Object.keys(personDetail).map((value, index) => {
             return (
               <li key={index}>
-                {value}:{' '}
-                {value.includes('films')
+                {value}:{" "}
+                {value.includes("films")
                   ? personDetail.films.map((url) => (
                       <img id="filmPoster" src={url} alt="" />
                     ))
