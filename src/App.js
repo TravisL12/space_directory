@@ -45,7 +45,7 @@ class App extends React.Component {
         <h1>Star Wars - React</h1>
         <div id="content">
           <List people={people} />
-          <div id="other" />
+          <div id="colpad" />
           {person ? <Detail person={person} /> : null}
         </div>
       </div>

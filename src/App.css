@@ -1,6 +1,21 @@
-img {
+body {
+  background-image: url('img/deathstar.png');
+}
+#colpad {
+  padding: 2%;
+}
+#trooper {
   max-width: 40%;
   max-height: 40%;
+}
+#filmPoster {
+  max-width: 10%;
+  max-height: 10%;
+  padding-right: 10px;
+}
+#filmPoster:hover {
+  max-width: 50%;
+  max-height: 50%;
 }
 #hideDetails {
   width: 150px;
@@ -9,12 +24,6 @@ img {
   padding: 5px;
   border-radius: 20px;
   border: none;
-}
-body {
-  background-image: url('img/deathstar.png');
-}
-#other {
-  padding: 10%;
 }
 h1,
 h2 {
@@ -27,9 +36,6 @@ h2 {
   display: flex;
   align-items: left;
   justify-content: left;
-}
-#traits {
-  font-weight: bold;
 }
 li {
   list-style: none;
