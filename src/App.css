@@ -111,7 +111,7 @@ a {
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   -webkit-animation-name: slide;
-  -webkit-animation-duration: 50s;
+  -webkit-animation-duration: 60s;
   -webkit-animation-timing-function: linear;
   -webkit-animation-iteration-count: infinite;
 }

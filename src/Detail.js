@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
 
+function hideDetails() {
+  window.location = "#";
+}
+
 async function callApi(film) {
   try {
     const res = await axios.get(film);
@@ -12,21 +16,17 @@ async function callApi(film) {
         y: res.data.release_date.substring(0, 4),
       },
     });
-    console.log(res.data);
-    return omdb.data.Poster;
+    omdb.data.crawl = res.data.opening_crawl;
+    return omdb.data;
   } catch (err) {
     console.error("There was a problem fetching:", err);
   }
-}
-function hideDetails() {
-  window.location = "#";
 }
 
 export default function Detail({ person }) {
   const [personDetail, setPersonDetail] = useState({});
   const getPosters = async (details) => {
     const posters = [];
-
     for (let i = 0; i < details.films.length; i++) {
       const film = details.films[i];
       posters.push(callApi(film));
@@ -45,7 +45,6 @@ export default function Detail({ person }) {
 
     getPosters(details);
   }, [person]);
-
   return (
     <div>
       <button id="hideDetails" onClick={hideDetails}>
@@ -60,25 +59,31 @@ export default function Detail({ person }) {
                 {value}:{" "}
                 {value.includes("films")
                   ? personDetail.films.map((url) => (
-                      <img id="filmPoster" src={url} alt="" />
+                      <img id="filmPoster" src={url.Poster} alt="" />
                     ))
                   : personDetail[value]}
               </li>
             );
           })}
         </ul>
-        <div className="marquee">
-          <div className="text">
-            "It is a period of civil war. Rebel spaceships, striking from a
-            hidden base, have won their first victory against the evil Galactic
-            Empire. During the battle, Rebel spies managed to steal secret plans
-            to the Empire's ultimate weapon, the DEATH STAR, an armored space
-            station with enough power to destroy an entire planet. Pursued by
-            the Empire's sinister agents, Princess Leia races home aboard her
-            starship, custodian of the stolen plans that can save her people and
-            restore freedom to the galaxy...."
-          </div>
-        </div>
+        {Object.keys(personDetail).map((value, index) => {
+          return (
+            <div>
+              <br />
+              <br />
+              <br />
+              {value.includes("films")
+                ? personDetail.films.map((url) => (
+                    <div className="marquee">
+                      <div className="text">
+                        {url.Title}: {url.crawl}
+                      </div>
+                    </div>
+                  ))
+                : null}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
