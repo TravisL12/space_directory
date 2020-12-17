@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
 
+function hideDetails() {
+  window.location = "#";
+}
+
 async function callApi(film) {
   try {
     const res = await axios.get(film);
@@ -12,20 +16,17 @@ async function callApi(film) {
         y: res.data.release_date.substring(0, 4),
       },
     });
-    return omdb.data.Poster;
+    omdb.data.crawl = res.data.opening_crawl;
+    return omdb.data;
   } catch (err) {
     console.error("There was a problem fetching:", err);
   }
-}
-function hideDetails() {
-  window.location = "#";
 }
 
 export default function Detail({ person }) {
   const [personDetail, setPersonDetail] = useState({});
   const getPosters = async (details) => {
     const posters = [];
-
     for (let i = 0; i < details.films.length; i++) {
       const film = details.films[i];
       posters.push(callApi(film));
@@ -44,7 +45,6 @@ export default function Detail({ person }) {
 
     getPosters(details);
   }, [person]);
-
   return (
     <div>
       <button id="hideDetails" onClick={hideDetails}>
@@ -59,13 +59,31 @@ export default function Detail({ person }) {
                 {value}:{" "}
                 {value.includes("films")
                   ? personDetail.films.map((url) => (
-                      <img id="filmPoster" src={url} alt="" />
+                      <img id="filmPoster" src={url.Poster} alt="" />
                     ))
                   : personDetail[value]}
               </li>
             );
           })}
         </ul>
+        {Object.keys(personDetail).map((value, index) => {
+          return (
+            <div>
+              <br />
+              <br />
+              <br />
+              {value.includes("films")
+                ? personDetail.films.map((url) => (
+                    <div className="marquee">
+                      <div className="text">
+                        {url.Title}: {url.crawl}
+                      </div>
+                    </div>
+                  ))
+                : null}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
