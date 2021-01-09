@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
-import "./App.css";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import './App.css';
+import axios from 'axios';
 
 function hideDetails() {
-  window.location = "#";
+  window.location = '#';
 }
 
 async function callApi(film) {
   try {
     const res = await axios.get(film);
-    const omdb = await axios.get("http://www.omdbapi.com/", {
+    const omdb = await axios.get('http://www.omdbapi.com/', {
       params: {
-        apikey: 764452 + "e7",
+        apikey: 764452 + 'e7',
         t: res.data.title,
         y: res.data.release_date.substring(0, 4),
       },
@@ -19,7 +19,7 @@ async function callApi(film) {
     omdb.data.crawl = res.data.opening_crawl;
     return omdb.data;
   } catch (err) {
-    console.error("There was a problem fetching:", err);
+    console.error('There was a problem fetching:', err);
   }
 }
 
@@ -45,6 +45,7 @@ export default function Detail({ person }) {
 
     getPosters(details);
   }, [person]);
+
   return (
     <div>
       <button id="hideDetails" onClick={hideDetails}>
@@ -54,36 +55,25 @@ export default function Detail({ person }) {
       <div id="content">
         <ul>
           {Object.keys(personDetail).map((value, index) => {
+            const detail = personDetail[value];
             return (
               <li key={index}>
-                {value}:{" "}
-                {value.includes("films")
-                  ? personDetail.films.map((url) => (
-                      <img id="filmPoster" src={url.Poster} alt="" />
-                    ))
-                  : personDetail[value]}
+                <div>{value}</div>
+                <div>
+                  {!Array.isArray(detail)
+                    ? detail
+                    : detail.map((d) =>
+                        value === 'films' ? (
+                          <img className="filmPoster" src={d.Poster} alt="" />
+                        ) : (
+                          <div>{d}</div>
+                        )
+                      )}
+                </div>
               </li>
             );
           })}
         </ul>
-        {Object.keys(personDetail).map((value, index) => {
-          return (
-            <div>
-              <br />
-              <br />
-              <br />
-              {value.includes("films")
-                ? personDetail.films.map((url) => (
-                    <div className="marquee">
-                      <div className="text">
-                        {url.Title}: {url.crawl}
-                      </div>
-                    </div>
-                  ))
-                : null}
-            </div>
-          );
-        })}
       </div>
     </div>
   );

@@ -1,5 +1,11 @@
 body {
-  background-image: url("img/deathstar.png");
+  background: url('img/deathstar.png');
+}
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
 }
 #trooper {
   max-width: 50px;
@@ -11,15 +17,21 @@ body {
   justify-content: left;
   min-width: 25%;
 }
-#filmPoster {
+#content li {
+  display: flex;
+}
+#content li div:first-child {
+  width: 200px;
+}
+.filmPoster {
   max-width: 100px;
   max-height: 100px;
   padding-left: 30px;
   position: relative;
 }
-#filmPoster:hover {
-  max-width: 500px;
-  max-height: 500px;
+.filmPoster:hover {
+  max-width: 150px;
+  max-height: 150px;
 }
 #hideDetails {
   width: 150px;
@@ -76,17 +88,6 @@ a {
     transform: translate(0, -100%);
   }
 }
-@-webkit-keyframes slide {
-  from {
-    bottom: 100%;
-    transform: translate(0, 0);
-  }
-  to {
-    top: -100%;
-    transform: translate(0, -100%);
-    /* transform: skewY(1.07rad); */
-  }
-}
 
 .marquee {
   color: gold;
@@ -110,8 +111,4 @@ a {
   animation-duration: 60s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
-  -webkit-animation-name: slide;
-  -webkit-animation-duration: 60s;
-  -webkit-animation-timing-function: linear;
-  -webkit-animation-iteration-count: infinite;
 }
