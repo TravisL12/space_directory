@@ -57,17 +57,25 @@ export default function Detail({ person }) {
             return (
               <li key={index}>
                 {value}:{' '}
-                {value.includes('films')
-                  ? personDetail.films.map((url) => (
-                      <img id="filmPoster" src={url.Poster} alt="" />
-                    ))
-                  : Array.isArray(personDetail[value])
-                  ? personDetail[value].map((links) => (
-                      <li>
+                {value.includes('films') ? (
+                  personDetail.films.map((url) => (
+                    <img className="zoom" src={url.Poster} alt="film posters" />
+                  ))
+                ) : Array.isArray(personDetail[value]) ? (
+                  personDetail[value].map((links) => (
+                    <ul>
+                      <li className="liNada">
                         <a href={links}>{links}</a>
                       </li>
-                    ))
-                  : personDetail[value]}
+                    </ul>
+                  ))
+                ) : value.includes('homeworld') ? (
+                  <a href={personDetail[value]}>{personDetail[value]}</a>
+                ) : value.includes('url') ? (
+                  <a href={personDetail[value]}>{personDetail[value]}</a>
+                ) : (
+                  personDetail[value]
+                )}
                 {/* : Array.isArray(personDetail[value])
                   // ? personDetail[value].join('\n')
                   // : personDetail[value]
@@ -79,10 +87,24 @@ export default function Detail({ person }) {
           })}
         </ul>
         {Object.keys(personDetail).map((value, index) => {
+          let randCrawl = Math.floor(
+            Math.random() * Math.floor(personDetail.films.length)
+          );
           return (
             <div>
               <br />
-              {value.includes('films')
+              {value.includes('films') ? (
+                <div className="crawlTitle">
+                  {personDetail.films[randCrawl].Title}
+                  <br /> <br />
+                  <div className="marquee">
+                    <div className="text">
+                      {personDetail.films[randCrawl].crawl}
+                    </div>
+                  </div>
+                </div>
+              ) : null}
+              {/* {value.includes('films')
                 ? personDetail.films.map((url) => (
                     <div className="crawlTitle">
                       {url.Title}
@@ -92,7 +114,7 @@ export default function Detail({ person }) {
                       </div>
                     </div>
                   ))
-                : null}
+                : null} */}
             </div>
           );
         })}

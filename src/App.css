@@ -11,16 +11,17 @@ body {
   justify-content: left;
   min-width: 25%;
 }
-#filmPoster {
-  max-width: 100px;
-  max-height: 100px;
+/* #filmPoster {
+  max-width: 10%;
+  max-height: 10%;
   padding-left: 30px;
   position: relative;
-}
+} */
+/*
 #filmPoster:hover {
   max-width: 500px;
   max-height: 500px;
-}
+} */
 #hideDetails {
   width: 150px;
   background-color: black;
@@ -35,6 +36,10 @@ h2 {
   display: inline-block;
   margin: auto;
   padding: 15px 0 0 15px;
+}
+.liNada {
+  font-size: 18px;
+  border: none;
 }
 li {
   list-style: none;
@@ -74,6 +79,7 @@ a {
   to {
     top: -100%;
     transform: translate(0, -100%);
+    /* transform: skewY(1.00rad); */
   }
 }
 @-webkit-keyframes slide {
@@ -84,17 +90,17 @@ a {
   to {
     top: -100%;
     transform: translate(0, -100%);
-    /* transform: skewY(1.07rad); */
+    /* transform: skewY(1.00rad); */
   }
 }
 .crawlTitle {
   color: gold;
-  padding-left: 25px;
+  padding: 0 30px 0 30px;
   font-size: 18px;
+  width: 300px;
 }
 .marquee {
   color: gold;
-  /* width: 100%; */
   height: 80vh;
   width: 300px;
   line-height: 40px;
@@ -102,17 +108,34 @@ a {
   position: relative;
 }
 .text {
+  padding-top: 50px;
   position: absolute;
   top: 0;
   white-space: normal;
-  /* height: 500px; */
+  height: 80vh;
   font-size: 18px;
+  /* animation-delay: 3s; */
   animation-name: slide;
   animation-duration: 60s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
+  /* -webkit-animation-delay: 3s; */
   -webkit-animation-name: slide;
   -webkit-animation-duration: 60s;
   -webkit-animation-timing-function: linear;
   -webkit-animation-iteration-count: infinite;
+}
+.zoom {
+  /* padding-left: 15px; */
+  /* display: flex; */
+  transition: transform 0.2s; /* Animation */
+  width: 75px;
+  /* height: 100px; */
+  margin: 0 auto;
+}
+.zoom:hover {
+  /* transform: translate(50px, 500px); */
+  transform: matrix(3.5, 0, 0, 3.5, -80, -50);
+  /* transform: scale(3.5); */
+  /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
