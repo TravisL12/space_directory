@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
-import "./App.css";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import './App.css';
+import axios from 'axios';
 
 function hideDetails() {
-  window.location = "#";
+  window.location = '#';
 }
 
 async function callApi(film) {
   try {
     const res = await axios.get(film);
-    const omdb = await axios.get("http://www.omdbapi.com/", {
+    const omdb = await axios.get('http://www.omdbapi.com/', {
       params: {
-        apikey: 764452 + "e7",
+        apikey: 764452 + 'e7',
         t: res.data.title,
         y: res.data.release_date.substring(0, 4),
       },
@@ -19,7 +19,7 @@ async function callApi(film) {
     omdb.data.crawl = res.data.opening_crawl;
     return omdb.data;
   } catch (err) {
-    console.error("There was a problem fetching:", err);
+    console.error('There was a problem fetching:', err);
   }
 }
 
@@ -56,12 +56,24 @@ export default function Detail({ person }) {
           {Object.keys(personDetail).map((value, index) => {
             return (
               <li key={index}>
-                {value}:{" "}
-                {value.includes("films")
+                {value}:{' '}
+                {value.includes('films')
                   ? personDetail.films.map((url) => (
                       <img id="filmPoster" src={url.Poster} alt="" />
                     ))
+                  : Array.isArray(personDetail[value])
+                  ? personDetail[value].map((links) => (
+                      <li>
+                        <a href={links}>{links}</a>
+                      </li>
+                    ))
                   : personDetail[value]}
+                {/* : Array.isArray(personDetail[value])
+                  // ? personDetail[value].join('\n')
+                  // : personDetail[value]
+                  // Array.isArray(personDetail[value])
+                  // ? personDetail[value].toString().replaceAll(',', '\n')
+                  // : personDetail[value] */}
               </li>
             );
           })}
@@ -70,13 +82,13 @@ export default function Detail({ person }) {
           return (
             <div>
               <br />
-              <br />
-              <br />
-              {value.includes("films")
+              {value.includes('films')
                 ? personDetail.films.map((url) => (
-                    <div className="marquee">
-                      <div className="text">
-                        {url.Title}: {url.crawl}
+                    <div className="crawlTitle">
+                      {url.Title}
+                      <br /> <br />
+                      <div className="marquee">
+                        <div className="text">{url.crawl}</div>
                       </div>
                     </div>
                   ))
