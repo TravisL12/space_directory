@@ -45,7 +45,6 @@ export default function Detail({ person }) {
 
     getPosters(details);
   }, [person]);
-  console.log(personDetail.films);
   return (
     <div>
       <button id="hideDetails" onClick={hideDetails}>
@@ -60,7 +59,11 @@ export default function Detail({ person }) {
                 {value}:{' '}
                 {value.includes('films') ? (
                   personDetail.films.map((url) => (
-                    <a href={`https://imdb.com/find?q=${url.Title}`}>
+                    <a
+                      href={`https://imdb.com/find?q=${url.Title}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <img
                         className="zoom"
                         src={url.Poster}

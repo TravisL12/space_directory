@@ -1,10 +1,10 @@
-import React from "react";
-import "./App.css";
-import axios from "axios";
-import Detail from "./Detail";
-import List from "./List";
+import React from 'react';
+import './App.css';
+import axios from 'axios';
+import Detail from './Detail';
+import List from './List';
 
-const domain = "https://swapi.dev/api/people/";
+const domain = 'https://swapi.dev/api/people/';
 
 class App extends React.Component {
   constructor() {
@@ -15,7 +15,7 @@ class App extends React.Component {
     };
   }
   async componentDidMount() {
-    window.addEventListener("hashchange", () => {
+    window.addEventListener('hashchange', () => {
       const id = window.location.hash.slice(1) * 1;
       this.setState({ id });
     });
@@ -38,7 +38,7 @@ class App extends React.Component {
       }
       this.setState({ people });
     } catch (err) {
-      console.error("There was a problem fetching people:", err);
+      console.error('There was a problem fetching people:', err);
     }
   }
   render() {
@@ -46,7 +46,7 @@ class App extends React.Component {
     const person = people.find((person) => person.id === id);
     return (
       <div>
-        <h1>Star Wars - React</h1>
+        <h2>Star Wars - React</h2>
         <div id="content">
           <List people={people} />
           {person ? <Detail person={person} /> : null}
