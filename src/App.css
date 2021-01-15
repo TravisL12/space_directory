@@ -134,8 +134,5 @@ a {
   margin: 0 auto;
 }
 .zoom:hover {
-  /* transform: translate(50px, 500px); */
-  transform: matrix(3.5, 0, 0, 3.5, -80, -50);
-  /* transform: scale(3.5); */
-  /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  transform: matrix(3.5, 0, 0, 3.5, -75, -30);
 }

@@ -45,6 +45,7 @@ export default function Detail({ person }) {
 
     getPosters(details);
   }, [person]);
+  console.log(personDetail.films);
   return (
     <div>
       <button id="hideDetails" onClick={hideDetails}>
@@ -59,7 +60,14 @@ export default function Detail({ person }) {
                 {value}:{' '}
                 {value.includes('films') ? (
                   personDetail.films.map((url) => (
-                    <img className="zoom" src={url.Poster} alt="film posters" />
+                    <a href={`https://imdb.com/find?q=${url.Title}`}>
+                      <img
+                        className="zoom"
+                        src={url.Poster}
+                        title={url.Title}
+                        alt={url.Title}
+                      />
+                    </a>
                   ))
                 ) : Array.isArray(personDetail[value]) ? (
                   personDetail[value].map((links) => (
