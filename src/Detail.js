@@ -57,20 +57,22 @@ export default function Detail({ person }) {
           {Object.keys(personDetail).map((value, index) => {
             const detail = personDetail[value];
             return (
-              <li key={index}>
-                <div>{value}</div>
-                <div>
-                  {!Array.isArray(detail)
-                    ? detail
-                    : detail.map((d) =>
-                        value === 'films' ? (
-                          <img className="filmPoster" src={d.Poster} alt="" />
-                        ) : (
-                          <div>{d}</div>
-                        )
-                      )}
-                </div>
-              </li>
+              detail && (
+                <li key={index}>
+                  <div>{value}</div>
+                  <div>
+                    {!Array.isArray(detail)
+                      ? detail
+                      : detail.map((d) =>
+                          value === 'films' ? (
+                            <img className="filmPoster" src={d.Poster} alt="" />
+                          ) : (
+                            <div>{d}</div>
+                          )
+                        )}
+                  </div>
+                </li>
+              )
             );
           })}
         </ul>
