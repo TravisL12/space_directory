@@ -49,7 +49,8 @@ export default function Detail({ person }) {
   return (
     <div>
       <button id="hideDetails" onClick={hideDetails}>
-        <img id="trooper" src="storm.jfif" alt="stormtrooper" /> Hide Details
+        <img id="trooper" src="storm.jfif" alt="stormtrooper" />
+        Close
       </button>
       <h2>Details for {`${personDetail.name}`}</h2>
       <div id="content">

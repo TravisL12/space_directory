@@ -1,59 +1,53 @@
-import React from "react";
-import "./App.css";
-import axios from "axios";
-import Detail from "./Detail";
-import List from "./List";
+import React, { useEffect, useState } from 'react';
+import './App.css';
+import axios from 'axios';
+import Detail from './Detail';
+import List from './List';
 
-const domain = "https://swapi.dev/api/people/";
+const domain = 'https://swapi.dev/api';
 
-class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      people: [],
-      id: null,
-    };
-  }
-  async componentDidMount() {
-    window.addEventListener("hashchange", () => {
+const App = () => {
+  const [people, setPeople] = useState([]);
+  const [id, setId] = useState(null);
+
+  const getData = async () => {
+    try {
+      const res = await axios.get(`${domain}/people`);
+      const people = res.data.results.map((person, idx) => {
+        person.id = idx + 1;
+        return person;
+      });
+      setPeople(people);
+    } catch (err) {
+      console.error('There was a problem fetching people:', err);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('hashchange', () => {
       const id = window.location.hash.slice(1) * 1;
-      this.setState({ id });
+      setId(id);
     });
     if (window.location.hash.length > 1) {
       const id = window.location.hash.slice(1) * 1;
-      this.setState({ id });
+      setId(id);
     }
-    try {
-      const res = await axios.get(`${domain}`);
-      const res2 = await axios.get(`${domain}?page=2`);
-      const resultsAll = [];
-      resultsAll.push(res.data.results);
-      resultsAll.push(res2.data.results);
-      const starwars = resultsAll.flat();
+    getData();
+  }, []);
 
-      const people = [];
-      for (let i = 0; i < starwars.length; i++) {
-        people[i] = starwars[i];
-        people[i].id = i + 1;
-      }
-      this.setState({ people });
-    } catch (err) {
-      console.error("There was a problem fetching people:", err);
-    }
-  }
-  render() {
-    const { people, id } = this.state;
-    const person = people.find((person) => person.id === id);
-    return (
-      <div>
-        <h1>Star Wars - React</h1>
-        <div id="content">
-          <List people={people} />
-          {person ? <Detail person={person} /> : null}
-        </div>
+  const person = people.find((person) => person.id === id);
+
+  return (
+    <div className="container">
+      <div className="header">
+        <h1>Star Wars</h1>
       </div>
-    );
-  }
-}
+      <div className="sidebar">
+        <List people={people} />
+      </div>
+      <div className="content">{person && <Detail person={person} />}</div>
+    </div>
+  );
+};
 
 export default App;
