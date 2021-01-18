@@ -1,10 +1,10 @@
 .container {
-  background: black;
   min-height: 100vh;
+  background: black;
   display: grid;
   grid-template-columns: 300px 1fr;
   grid-template-rows: 100px 1fr;
-  gap: 10px 30px;
+  gap: 0 30px;
   color: white;
 }
 
@@ -21,7 +21,6 @@ li {
   list-style: none;
   color: dodgerblue;
   font-size: 1.2em;
-  border: solid 1px lightgray;
   padding: 5px;
 }
 
@@ -40,6 +39,7 @@ li {
 .sidebar {
   grid-row: 2;
   grid-column: 1;
+  background: lightgray;
 }
 .content {
   grid-row: 2;
@@ -110,7 +110,6 @@ a {
   position: absolute;
   top: 0;
   white-space: normal;
-  /* height: 500px; */
   font-size: 20px;
   animation-name: slide;
   animation-duration: 60s;

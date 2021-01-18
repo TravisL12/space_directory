@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import axios from 'axios';
 import Detail from './Detail';
 import List from './List';
-
-const domain = 'https://swapi.dev/api';
+import { fetchPeople } from './helper';
 
 const App = () => {
   const [people, setPeople] = useState([]);
@@ -12,11 +10,7 @@ const App = () => {
 
   const getData = async () => {
     try {
-      const res = await axios.get(`${domain}/people`);
-      const people = res.data.results.map((person, idx) => {
-        person.id = idx + 1;
-        return person;
-      });
+      const people = await fetchPeople();
       setPeople(people);
     } catch (err) {
       console.error('There was a problem fetching people:', err);
