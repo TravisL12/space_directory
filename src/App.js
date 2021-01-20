@@ -4,7 +4,7 @@ import axios from 'axios';
 import Detail from './Detail';
 import List from './List';
 
-const domain = 'https://swapi.dev/api/people/';
+const domain = 'https://swapi.dev/api/people/?page=';
 
 class App extends React.Component {
   constructor() {
@@ -24,11 +24,14 @@ class App extends React.Component {
       this.setState({ id });
     }
     try {
-      const res = await axios.get(`${domain}`);
-      const res2 = await axios.get(`${domain}?page=2`);
       const resultsAll = [];
+      let res = await axios.get(`${domain}1`);
       resultsAll.push(res.data.results);
-      resultsAll.push(res2.data.results);
+
+      for (let i = 2; res.data.next !== null; i++) {
+        res = await axios.get(`${domain}${i}`);
+        resultsAll.push(res.data.results);
+      }
       const starwars = resultsAll.flat();
 
       const people = [];

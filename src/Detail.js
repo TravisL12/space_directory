@@ -6,9 +6,8 @@ function hideDetails() {
   window.location = '#';
 }
 
-async function callApi(film) {
+async function callApi(res) {
   try {
-    const res = await axios.get(film);
     const omdb = await axios.get('http://www.omdbapi.com/', {
       params: {
         apikey: 764452 + 'e7',
@@ -29,7 +28,43 @@ export default function Detail({ person }) {
     const posters = [];
     for (let i = 0; i < details.films.length; i++) {
       const film = details.films[i];
-      posters.push(callApi(film));
+      const res = await axios.get(film);
+
+      let personDetailVal;
+      if (details.homeworld.startsWith('http://')) {
+        personDetailVal = await axios.get(details.homeworld);
+        details.homeworld = personDetailVal.data.name;
+      }
+      if (details.species[0] !== undefined)
+        if (details.species[0].startsWith('http://')) {
+          personDetailVal = await axios.get(details.species);
+          details.species = personDetailVal.data.name;
+        }
+
+      if (Array.isArray(details.vehicles)) {
+        let arr = [];
+        let response;
+        for (let i = 0; i < details.vehicles.length; i++) {
+          if (details.vehicles[0].startsWith('http://')) {
+            response = await axios.get(details.vehicles[i]);
+            arr.push(response.data.name);
+          }
+        }
+        if (response !== undefined) details.vehicles = arr;
+      }
+      if (Array.isArray(details.starships)) {
+        let arr = [];
+        let response;
+        for (let i = 0; i < details.starships.length; i++) {
+          if (details.starships[0].startsWith('http://')) {
+            response = await axios.get(details.starships[i]);
+            arr.push(response.data.name);
+          }
+        }
+        if (response !== undefined) details.starships = arr;
+      }
+
+      posters.push(callApi(res));
     }
 
     details.films = await Promise.all(posters);
@@ -45,6 +80,7 @@ export default function Detail({ person }) {
 
     getPosters(details);
   }, [person]);
+
   return (
     <div>
       <button id="hideDetails" onClick={hideDetails}>
@@ -72,27 +108,33 @@ export default function Detail({ person }) {
                       />
                     </a>
                   ))
-                ) : Array.isArray(personDetail[value]) ? (
+                ) : value.includes('vehicles') ||
+                  value.includes('starships') ? (
                   personDetail[value].map((links) => (
                     <ul>
-                      <li className="liNada">
-                        <a href={links}>{links}</a>
-                      </li>
+                      <li className="liNada">{links}</li>
                     </ul>
                   ))
-                ) : value.includes('homeworld') ? (
-                  <a href={personDetail[value]}>{personDetail[value]}</a>
+                ) : // : Array.isArray(personDetail[value]) ? (
+                //   personDetail[value].map((links) => (
+                //     <ul>
+                //       <li className="liNada">
+                //         <a href={links}>{links}</a>
+                //       </li>
+                //     </ul>
+                //   ))
+                // )
+                value.includes('homeworld') ? (
+                  value.startsWith('http://') ? (
+                    <a href={personDetail[value]}>{personDetail[value]}</a>
+                  ) : (
+                    personDetail[value]
+                  )
                 ) : value.includes('url') ? (
                   <a href={personDetail[value]}>{personDetail[value]}</a>
                 ) : (
                   personDetail[value]
                 )}
-                {/* : Array.isArray(personDetail[value])
-                  // ? personDetail[value].join('\n')
-                  // : personDetail[value]
-                  // Array.isArray(personDetail[value])
-                  // ? personDetail[value].toString().replaceAll(',', '\n')
-                  // : personDetail[value] */}
               </li>
             );
           })}
@@ -115,17 +157,6 @@ export default function Detail({ person }) {
                   </div>
                 </div>
               ) : null}
-              {/* {value.includes('films')
-                ? personDetail.films.map((url) => (
-                    <div className="crawlTitle">
-                      {url.Title}
-                      <br /> <br />
-                      <div className="marquee">
-                        <div className="text">{url.crawl}</div>
-                      </div>
-                    </div>
-                  ))
-                : null} */}
             </div>
           );
         })}
