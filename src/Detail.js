@@ -1,25 +1,78 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import DetailRow from './DetailRow';
-import { fetchMovie } from './helper';
+import DetailCollectionRow from './DetailCollectionRow';
+import { fetchMovie, fetchStarWars } from './helper';
 
 function hideDetails() {
   window.location = '#';
 }
 
+// const {
+//   birth_year,
+//   created,
+//   edited,
+//   eye_color,
+//   gender,
+//   hair_color,
+//   height,
+//   id,
+//   mass,
+//   name,
+//   skin_color,
+
+//   homeworld,
+//   films,
+//   species,
+//   starships,
+//   vehicles,
+// } = personDetail;
+
+const validAttributes = [
+  'birth_year',
+  'created',
+  'edited',
+  'eye_color',
+  'gender',
+  'hair_color',
+  'height',
+  'id',
+  'mass',
+  'name',
+  'skin_color',
+  'homeworld',
+];
+
+const arrayAttributes = ['species', 'starships', 'vehicles'];
+
 export default function Detail({ person }) {
-  const [personDetail, setPersonDetail] = useState({});
-  const getPosters = async (details) => {
-    const posters = details.films.map((film) => {
-      return fetchMovie(film);
+  const [personDetail, setPersonDetail] = useState();
+
+  const getDetails = async (details, attr, api) => {
+    const data = details[attr].map((url) => {
+      return api(url);
     });
-    details.films = await Promise.all(posters);
-    setPersonDetail(details);
+
+    return await Promise.all(data);
+  };
+
+  const loadStarWars = async () => {
+    person['films-async'] = await getDetails(person, 'films', fetchMovie);
+    for (let i = 0; i < arrayAttributes.length; i++) {
+      const key = arrayAttributes[i];
+      person[`${key}-async`] = await getDetails(person, key, fetchStarWars);
+    }
+    setPersonDetail(person);
   };
 
   useEffect(() => {
-    getPosters(person);
+    setPersonDetail({});
+    loadStarWars();
   }, [person]);
+
+  if (!personDetail) {
+    return 'Loading';
+  }
 
   return (
     <div>
@@ -29,8 +82,15 @@ export default function Detail({ person }) {
       <h2>Details for {`${personDetail.name}`}</h2>
       <div id="content">
         <ul>
-          {Object.keys(personDetail).map((key) => (
+          {validAttributes.map((key) => (
             <DetailRow key={key} datakey={key} value={personDetail[key]} />
+          ))}
+          {[...arrayAttributes, 'films'].map((key) => (
+            <DetailCollectionRow
+              key={key}
+              datakey={key}
+              value={personDetail[`${key}-async`]}
+            />
           ))}
         </ul>
       </div>

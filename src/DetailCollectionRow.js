@@ -9,7 +9,7 @@ const isUrl = (valueString) => {
   return false;
 };
 
-export default function DetailRow({ datakey, value }) {
+export default function DetailCollectionRow({ datakey, value }) {
   const [detail, setDetail] = useState();
   const getData = async () => {
     const data = await fetchStarWars(value);
@@ -23,7 +23,17 @@ export default function DetailRow({ datakey, value }) {
   return (
     <li>
       <div>{datakey}</div>
-      <div>{detail}</div>
+      <div>
+        {!detail
+          ? 'loading'
+          : detail.map((d) => {
+              return value === 'films' ? (
+                <img className="filmPoster" src={d.Poster} alt="" />
+              ) : (
+                <div>{d.name || d.Title}</div>
+              );
+            })}
+      </div>
     </li>
   );
 }

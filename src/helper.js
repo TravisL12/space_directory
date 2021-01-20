@@ -13,7 +13,7 @@ const fetchPeople = async () => {
 
 const fetchStarWars = async (url) => {
   const res = await axios.get(url);
-  return res.data.results;
+  return res.data;
 };
 
 const fetchMovie = async (film) => {
