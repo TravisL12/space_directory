@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
-import DetailRow from './DetailRow';
-import DetailCollectionRow from './DetailCollectionRow';
-import { fetchMovie, fetchStarWars } from './helper';
+import '../App.css';
+import Row from './Row';
+import CollectionRow from './CollectionRow';
+import { fetchMovie, fetchStarWars } from '../helper';
 
 function hideDetails() {
   window.location = '#';
 }
 
-// const {
+// const {s
 //   birth_year,
 //   created,
 //   edited,
@@ -83,10 +83,10 @@ export default function Detail({ person }) {
       <div id="content">
         <ul>
           {validAttributes.map((key) => (
-            <DetailRow key={key} datakey={key} value={personDetail[key]} />
+            <Row key={key} datakey={key} value={personDetail[key]} />
           ))}
           {[...arrayAttributes, 'films'].map((key) => (
-            <DetailCollectionRow
+            <CollectionRow
               key={key}
               datakey={key}
               value={personDetail[`${key}-async`]}

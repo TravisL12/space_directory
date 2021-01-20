@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
-import { fetchStarWars } from './helper';
+import '../App.css';
+import { fetchStarWars } from '../helper';
 
 const isUrl = (valueString) => {
   if (typeof valueString === 'string') {
