@@ -58,10 +58,9 @@ export default function Detail({ person }) {
 
   const loadStarWars = async () => {
     const personCopy = { ...person };
-    const personKeys = Object.keys(person);
+    const personKeys = Object.entries(person);
     for (let i = 0; i < personKeys.length; i++) {
-      const key = personKeys[i];
-      const value = personCopy[key];
+      const [key, value] = personKeys[i];
       const allUrls = Array.isArray(value) && value.every((val) => isUrl(val));
       if (allUrls && key !== 'films') {
         personCopy[`${key}-async`] = await getDetails(
