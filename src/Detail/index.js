@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../App.css';
 import Row from './Row';
 import CollectionRow from './CollectionRow';
-import { fetchMovie, fetchStarWars } from '../helper';
+import { fetchMovie, fetchStarWars, isUrl } from '../helper';
 
 function hideDetails() {
   window.location = '#';
@@ -28,25 +28,25 @@ function hideDetails() {
 //   vehicles,
 // } = personDetail;
 
-const validAttributes = [
-  'birth_year',
-  'created',
-  'edited',
-  'eye_color',
-  'gender',
-  'hair_color',
-  'height',
-  'id',
-  'mass',
-  'name',
-  'skin_color',
-  'homeworld',
-];
+// const validAttributes = [
+//   'birth_year',
+//   'created',
+//   'edited',
+//   'eye_color',
+//   'gender',
+//   'hair_color',
+//   'height',
+//   'id',
+//   'mass',
+//   'name',
+//   'skin_color',
+//   'homeworld',
+// ];
 
-const arrayAttributes = ['species', 'starships', 'vehicles'];
+// const arrayAttributes = ['species', 'starships', 'vehicles'];
 
 export default function Detail({ person }) {
-  const [personDetail, setPersonDetail] = useState();
+  const [personDetail, setPersonDetail] = useState({});
 
   const getDetails = async (details, attr, api) => {
     const data = details[attr].map((url) => {
@@ -57,22 +57,42 @@ export default function Detail({ person }) {
   };
 
   const loadStarWars = async () => {
-    person['films-async'] = await getDetails(person, 'films', fetchMovie);
-    for (let i = 0; i < arrayAttributes.length; i++) {
-      const key = arrayAttributes[i];
-      person[`${key}-async`] = await getDetails(person, key, fetchStarWars);
+    const personCopy = { ...person };
+    const personKeys = Object.keys(person);
+    for (let i = 0; i < personKeys.length; i++) {
+      const key = personKeys[i];
+      const value = personCopy[key];
+      const allUrls = Array.isArray(value) && value.every((val) => isUrl(val));
+      if (allUrls && key !== 'films') {
+        personCopy[`${key}-async`] = await getDetails(
+          personCopy,
+          key,
+          fetchStarWars
+        );
+      }
     }
-    setPersonDetail(person);
+    personCopy['films-async'] = await getDetails(
+      personCopy,
+      'films',
+      fetchMovie
+    );
+    setPersonDetail(personCopy);
   };
 
   useEffect(() => {
-    setPersonDetail({});
     loadStarWars();
   }, [person]);
 
   if (!personDetail) {
     return 'Loading';
   }
+
+  const validAttributes = Object.keys(personDetail).filter(
+    (key) => !Array.isArray(personDetail[key])
+  );
+  const arrayAttributes = Object.keys(personDetail).filter(
+    (key) => Array.isArray(personDetail[key]) && !key.includes('async')
+  );
 
   return (
     <div>
@@ -85,7 +105,7 @@ export default function Detail({ person }) {
           {validAttributes.map((key) => (
             <Row key={key} datakey={key} value={personDetail[key]} />
           ))}
-          {[...arrayAttributes, 'films'].map((key) => (
+          {arrayAttributes.map((key) => (
             <CollectionRow
               key={key}
               datakey={key}

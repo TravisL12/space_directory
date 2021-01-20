@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css';
-import { fetchStarWars } from '../helper';
+import { fetchStarWars, isUrl } from '../helper';
 
-const isUrl = (valueString) => {
-  if (typeof valueString === 'string') {
-    return valueString.match(/^http/);
-  }
-  return false;
-};
-
-export default function DetailRow({ datakey, value }) {
+export default function Row({ datakey, value }) {
   const [detail, setDetail] = useState();
   const getData = async () => {
     const data = await fetchStarWars(value);

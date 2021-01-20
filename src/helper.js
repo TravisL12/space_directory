@@ -33,4 +33,11 @@ const fetchMovie = async (film) => {
   }
 };
 
-export { fetchStarWars, fetchPeople, fetchMovie };
+const isUrl = (valueString) => {
+  if (typeof valueString === 'string') {
+    return valueString.match(/^http/);
+  }
+  return false;
+};
+
+export { fetchStarWars, fetchPeople, fetchMovie, isUrl };
