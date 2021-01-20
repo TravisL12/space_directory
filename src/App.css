@@ -134,5 +134,5 @@ a {
   margin: 0 auto;
 }
 .zoom:hover {
-  transform: matrix(3.5, 0, 0, 3.5, -75, -30);
+  transform: matrix(3, 0, 0, 3, -75, -30);
 }
