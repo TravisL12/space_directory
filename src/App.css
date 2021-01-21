@@ -67,7 +67,6 @@ li {
   border-radius: 20px;
   border: none;
 }
-
 a:hover,
 #hideDetails:hover,
 #liurl:hover,
@@ -93,6 +92,7 @@ a {
   to {
     top: -100%;
     transform: translate(0, -100%);
+    /* transform: skewY(1.00rad); */
   }
 }
 
@@ -103,10 +103,9 @@ a {
   line-height: 40px;
   overflow: hidden;
   position: relative;
-  padding-left: 30px;
 }
-
 .text {
+  padding-top: 50px;
   position: absolute;
   top: 0;
   white-space: normal;
@@ -115,4 +114,15 @@ a {
   animation-duration: 60s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
+}
+.zoom {
+  /* padding-left: 15px; */
+  /* display: flex; */
+  transition: transform 0.2s; /* Animation */
+  width: 75px;
+  /* height: 100px; */
+  margin: 0 auto;
+}
+.zoom:hover {
+  transform: matrix(3, 0, 0, 3, -75, -20);
 }
