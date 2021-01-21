@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import Detail from './Detail';
 import List from './List';
-import { fetchPeople } from './helper';
+import { SW_API_URL, fetchStarWars } from './helper';
 
 const App = () => {
   const [people, setPeople] = useState([]);
@@ -10,7 +10,11 @@ const App = () => {
 
   const getData = async () => {
     try {
-      const people = await fetchPeople();
+      const data = await fetchStarWars(`${SW_API_URL}/people`);
+      const people = data.results.map((person, idx) => {
+        person.id = idx + 1;
+        return person;
+      });
       setPeople(people);
     } catch (err) {
       console.error('There was a problem fetching people:', err);

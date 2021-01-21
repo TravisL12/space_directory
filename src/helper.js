@@ -1,15 +1,7 @@
 import axios from 'axios';
 
-const SW_API_URL = 'https://swapi.dev/api';
+export const SW_API_URL = 'https://swapi.dev/api';
 const OMDB_API_URL = 'http://www.omdbapi.com/';
-
-const fetchPeople = async () => {
-  const res = await axios.get(`${SW_API_URL}/people`);
-  return res.data.results.map((person, idx) => {
-    person.id = idx + 1;
-    return person;
-  });
-};
 
 const fetchStarWars = async (url) => {
   const res = await axios.get(url);
@@ -40,4 +32,4 @@ const isUrl = (valueString) => {
   return false;
 };
 
-export { fetchStarWars, fetchPeople, fetchMovie, isUrl };
+export { fetchStarWars, fetchMovie, isUrl };
