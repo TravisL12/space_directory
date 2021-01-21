@@ -8,29 +8,29 @@ import {
 import './App.css';
 import Detail from './Detail/';
 import List from './List';
-import { SW_API_URL, fetchStarWars } from './helper';
+import { SW_API_URL, fetchStarWars, getIdFromUrl } from './helper';
 
 const App = () => {
-  const [people, setPeople] = useState();
+  const [people, setPeople] = useState({ people: [] });
 
-  const getData = async () => {
+  const getCharacters = async (url) => {
     try {
-      const data = await fetchStarWars(`${SW_API_URL}/people`);
-      const characters = data.results.map((person, idx) => {
-        person.id = idx + 1;
+      const { next, results } = await fetchStarWars(url);
+      const newPeople = results.map((person) => {
+        person.id = getIdFromUrl(person.url);
         return person;
       });
-      setPeople(characters);
+      setPeople({ more: next, people: [...people.people, ...newPeople] });
     } catch (err) {
       console.error('There was a problem fetching people:', err);
     }
   };
 
   useEffect(() => {
-    getData();
+    getCharacters(`${SW_API_URL}/people`);
   }, []);
 
-  if (!people) {
+  if (people.people.length === 0) {
     return <div>loading</div>;
   }
 
@@ -40,16 +40,16 @@ const App = () => {
         <div className="header">
           <h1>Star Wars</h1>
         </div>
-        <div className="sidebar">
-          <List people={people} />
-        </div>
+        <List people={people} getCharacters={getCharacters} />
         <div className="content">
           <Switch>
             <Route
               path="/person/:id"
               render={(params) => {
                 const id = params.match.params.id;
-                const character = people.find((person) => +person.id === +id);
+                const character = people.people.find(
+                  (person) => +person.id === +id
+                );
                 return character ? (
                   <Detail person={character} />
                 ) : (

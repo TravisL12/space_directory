@@ -5,45 +5,8 @@ import CollectionRow from './CollectionRow';
 import { fetchMovie, fetchStarWars, isUrl } from '../helper';
 import { Link } from 'react-router-dom';
 
-// const {s
-//   birth_year,
-//   created,
-//   edited,
-//   eye_color,
-//   gender,
-//   hair_color,
-//   height,
-//   id,
-//   mass,
-//   name,
-//   skin_color,
-
-//   homeworld,
-//   films,
-//   species,
-//   starships,
-//   vehicles,
-// } = personDetail;
-
-// const validAttributes = [
-//   'birth_year',
-//   'created',
-//   'edited',
-//   'eye_color',
-//   'gender',
-//   'hair_color',
-//   'height',
-//   'id',
-//   'mass',
-//   'name',
-//   'skin_color',
-//   'homeworld',
-// ];
-
-// const arrayAttributes = ['species', 'starships', 'vehicles'];
-
 export default function Detail({ person }) {
-  const [personDetail, setPersonDetail] = useState({});
+  const [personDetail, setPersonDetail] = useState();
 
   const getDetails = async (details, attr, api) => {
     const data = details[attr].map((url) => {
@@ -53,7 +16,7 @@ export default function Detail({ person }) {
     return await Promise.all(data);
   };
 
-  const loadStarWars = async () => {
+  const loadDetails = async () => {
     const personCopy = { ...person };
     const personKeys = Object.entries(person);
     for (let i = 0; i < personKeys.length; i++) {
@@ -76,7 +39,7 @@ export default function Detail({ person }) {
   };
 
   useEffect(() => {
-    loadStarWars();
+    loadDetails();
   }, [person]);
 
   if (!personDetail) {

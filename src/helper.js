@@ -3,6 +3,43 @@ import axios from 'axios';
 export const SW_API_URL = 'https://swapi.dev/api';
 const OMDB_API_URL = 'http://www.omdbapi.com/';
 
+// const {s
+//   birth_year,
+//   created,
+//   edited,
+//   eye_color,
+//   gender,
+//   hair_color,
+//   height,
+//   id,
+//   mass,
+//   name,
+//   skin_color,
+
+//   homeworld,
+//   films,
+//   species,
+//   starships,
+//   vehicles,
+// } = personDetail;
+
+// const validAttributes = [
+//   'birth_year',
+//   'created',
+//   'edited',
+//   'eye_color',
+//   'gender',
+//   'hair_color',
+//   'height',
+//   'id',
+//   'mass',
+//   'name',
+//   'skin_color',
+//   'homeworld',
+// ];
+
+// const arrayAttributes = ['species', 'starships', 'vehicles'];
+
 const fetchStarWars = async (url) => {
   const res = await axios.get(url);
   return res.data;
@@ -32,4 +69,9 @@ const isUrl = (valueString) => {
   return false;
 };
 
-export { fetchStarWars, fetchMovie, isUrl };
+const getIdFromUrl = (url) => {
+  const urlSplit = url.split('/').filter((x) => x);
+  return urlSplit[urlSplit.length - 1];
+};
+
+export { fetchStarWars, fetchMovie, isUrl, getIdFromUrl };
