@@ -67,6 +67,7 @@ li {
   border-radius: 20px;
   border: none;
 }
+
 a:hover,
 #hideDetails:hover,
 #liurl:hover,
@@ -74,14 +75,6 @@ a:hover,
 #namelistli:hover {
   background-color: dodgerblue;
   color: white;
-}
-a {
-  color: dodgerblue;
-  background-color: black;
-}
-#namelist {
-  text-decoration: none;
-  border: none;
 }
 
 @keyframes slide {
@@ -92,7 +85,6 @@ a {
   to {
     top: -100%;
     transform: translate(0, -100%);
-    /* transform: skewY(1.00rad); */
   }
 }
 
@@ -116,11 +108,8 @@ a {
   animation-iteration-count: infinite;
 }
 .zoom {
-  /* padding-left: 15px; */
-  /* display: flex; */
-  transition: transform 0.2s; /* Animation */
+  transition: transform 0.2s;
   width: 75px;
-  /* height: 100px; */
   margin: 0 auto;
 }
 .zoom:hover {

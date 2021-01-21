@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './App.css';
 
 export default function List({ people }) {
@@ -7,11 +8,11 @@ export default function List({ people }) {
       <ul>
         {people.map((person) => {
           return (
-            <a id="namelist" key={person.id} href={`#${person.id}`}>
-              <li id="namelistli" key={person.id}>
+            <li id="namelistli">
+              <Link id="namelist" key={person.id} to={`/person/${person.id}`}>
                 {person.id}. {person.name}
-              </li>
-            </a>
+              </Link>
+            </li>
           );
         })}
       </ul>
