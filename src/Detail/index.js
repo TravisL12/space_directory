@@ -3,10 +3,7 @@ import '../App.css';
 import Row from './Row';
 import CollectionRow from './CollectionRow';
 import { fetchMovie, fetchStarWars, isUrl } from '../helper';
-
-function hideDetails() {
-  window.location = '#';
-}
+import { Link } from 'react-router-dom';
 
 // const {s
 //   birth_year,
@@ -95,9 +92,7 @@ export default function Detail({ person }) {
 
   return (
     <div>
-      <button id="hideDetails" onClick={hideDetails}>
-        Close
-      </button>
+      <Link to="/">Back</Link>
       <h2>Details for {`${personDetail.name}`}</h2>
       <div id="content">
         <ul>

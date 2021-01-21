@@ -6,7 +6,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 import './App.css';
-import Detail from './Detail';
+import Detail from './Detail/';
 import List from './List';
 import { SW_API_URL, fetchStarWars } from './helper';
 
