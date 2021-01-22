@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import '../App.css';
 import Row from './Row';
 import CollectionRow from './CollectionRow';
-import { fetchMovie, fetchStarWars, isUrl } from '../helper';
+import { fetchMovie, fetchStarWars, isUrl, SW_API_URL } from '../helper';
 import { Link, useParams } from 'react-router-dom';
 
-export default function Detail({ people }) {
+export default function Detail() {
   const [personDetail, setPersonDetail] = useState();
   const params = useParams();
 
@@ -18,8 +18,8 @@ export default function Detail({ people }) {
   };
 
   const loadDetails = async () => {
-    const personCopy = people[params.type].find(
-      (item) => +item.id === +params.id
+    const personCopy = await fetchStarWars(
+      `${SW_API_URL}/${params.type}/${params.id}`
     );
     const personKeys = Object.entries(personCopy);
     for (let i = 0; i < personKeys.length; i++) {

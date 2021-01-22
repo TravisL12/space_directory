@@ -1,39 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
 import './App.css';
 import Detail from './Detail/';
 import List from './List';
-import { SW_API_URL, fetchStarWars, getIdFromUrl } from './helper';
 import { PEOPLE, PLANETS, VEHICLES } from './constants';
 
 const App = () => {
-  const [people, setPeople] = useState({ people: [] });
-  const getCharacters = async (url) => {
-    try {
-      const { next, results } = await fetchStarWars(url);
-      const newPeople = results.map((person) => {
-        person.id = getIdFromUrl(person.url);
-        return person;
-      });
-      setPeople({ more: next, people: [...people.people, ...newPeople] });
-    } catch (err) {
-      console.error('There was a problem fetching people:', err);
-    }
-  };
-
-  useEffect(() => {
-    getCharacters(`${SW_API_URL}/people`);
-  }, []);
-
-  if (people.people.length === 0) {
-    return <div>loading</div>;
-  }
-
   return (
     <div className="container">
       <div className="header">
         <h1>Star Wars</h1>
-        <div>
+        <div className="links">
           <Link to={`/${PEOPLE}`}>People</Link>
           <Link to={`/${PLANETS}`}>Planets</Link>
           <Link to={`/${VEHICLES}`}>Vehicles</Link>
@@ -41,16 +18,16 @@ const App = () => {
       </div>
       <Switch>
         <Route path="/:type">
-          <List people={people} getCharacters={getCharacters} />
+          <List />
         </Route>
         <Route path="/">
-          <List people={{ people: [] }} />
+          <List />
         </Route>
       </Switch>
       <div className="content">
         <Switch>
           <Route path="/:type/:id">
-            <Detail people={people} />
+            <Detail />
           </Route>
           <Route path="/">Welcome</Route>
         </Switch>
