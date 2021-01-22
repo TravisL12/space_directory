@@ -26,19 +26,19 @@ export default function List() {
   };
 
   useEffect(() => {
-    const url = list[type]?.next || `${SW_API_URL}/${type}`;
-    getList(url);
+    const next = list[type]?.next;
+    const url = next || `${SW_API_URL}/${type}`;
+    if (!next) getList(url);
   }, [type]);
 
-  console.log(list);
-  if (list[type]?.items?.length === 0) {
+  if (type && list[type]?.items?.length === 0) {
     return <div>loading</div>;
   }
 
   return (
     <div className="sidebar">
       <div>
-        {getList && (
+        {type && (
           <button
             disabled={!list[type]?.next}
             onClick={() => getList(list[type]?.next)}
