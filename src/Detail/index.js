@@ -3,10 +3,11 @@ import '../App.css';
 import Row from './Row';
 import CollectionRow from './CollectionRow';
 import { fetchMovie, fetchStarWars, isUrl } from '../helper';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
-export default function Detail({ person }) {
+export default function Detail({ people }) {
   const [personDetail, setPersonDetail] = useState();
+  const params = useParams();
 
   const getDetails = async (details, attr, api) => {
     const data = details[attr].map((url) => {
@@ -17,8 +18,10 @@ export default function Detail({ person }) {
   };
 
   const loadDetails = async () => {
-    const personCopy = { ...person };
-    const personKeys = Object.entries(person);
+    const personCopy = people[params.type].find(
+      (item) => +item.id === +params.id
+    );
+    const personKeys = Object.entries(personCopy);
     for (let i = 0; i < personKeys.length; i++) {
       const [key, value] = personKeys[i];
       const allUrls = Array.isArray(value) && value.every((val) => isUrl(val));
@@ -40,7 +43,7 @@ export default function Detail({ person }) {
 
   useEffect(() => {
     loadDetails();
-  }, [person]);
+  }, [params]);
 
   if (!personDetail) {
     return 'Loading';

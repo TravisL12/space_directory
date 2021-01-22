@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 import './App.css';
 import Detail from './Detail/';
 import List from './List';
 import { SW_API_URL, fetchStarWars, getIdFromUrl } from './helper';
+import { PEOPLE, PLANETS, VEHICLES } from './constants';
 
 const App = () => {
   const [people, setPeople] = useState({ people: [] });
-
   const getCharacters = async (url) => {
     try {
       const { next, results } = await fetchStarWars(url);
@@ -35,34 +30,32 @@ const App = () => {
   }
 
   return (
-    <Router>
-      <div className="container">
-        <div className="header">
-          <h1>Star Wars</h1>
-        </div>
-        <List people={people} getCharacters={getCharacters} />
-        <div className="content">
-          <Switch>
-            <Route
-              path="/person/:id"
-              render={(params) => {
-                const id = params.match.params.id;
-                const character = people.people.find(
-                  (person) => +person.id === +id
-                );
-                return character ? (
-                  <Detail person={character} />
-                ) : (
-                  <Redirect to="/" />
-                );
-              }}
-            />
-
-            <Route path="/">Welcome</Route>
-          </Switch>
+    <div className="container">
+      <div className="header">
+        <h1>Star Wars</h1>
+        <div>
+          <Link to={`/${PEOPLE}`}>People</Link>
+          <Link to={`/${PLANETS}`}>Planets</Link>
+          <Link to={`/${VEHICLES}`}>Vehicles</Link>
         </div>
       </div>
-    </Router>
+      <Switch>
+        <Route path="/:type">
+          <List people={people} getCharacters={getCharacters} />
+        </Route>
+        <Route path="/">
+          <List people={{ people: [] }} />
+        </Route>
+      </Switch>
+      <div className="content">
+        <Switch>
+          <Route path="/:type/:id">
+            <Detail people={people} />
+          </Route>
+          <Route path="/">Welcome</Route>
+        </Switch>
+      </div>
+    </div>
   );
 };
 
