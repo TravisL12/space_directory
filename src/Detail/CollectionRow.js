@@ -30,12 +30,15 @@ export default function CollectionRow({ datakey, value }) {
                   d.name || d.Title
                 );
               return datakey === 'films' ? (
-                <img
-                  key={`collection-row-${idx}`}
-                  className="filmPoster"
-                  src={d.Poster}
-                  alt=""
-                />
+                <div>
+                  <img
+                    key={`collection-row-${idx}`}
+                    className="filmPoster"
+                    src={d.Poster}
+                    alt=""
+                  />
+                  {link}
+                </div>
               ) : (
                 <div key={`collection-row-${idx}`}>{link}</div>
               );

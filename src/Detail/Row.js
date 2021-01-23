@@ -14,11 +14,10 @@ export default function Row({ datakey, value }) {
     isUrl(value) ? getData() : setDetail({ name: value });
   }, [value]);
 
-  if (!detail) {
-    return <li>Loading</li>;
-  }
-
   const getLink = () => {
+    if (!detail) {
+      return <li>Loading</li>;
+    }
     const id = getIdFromUrl(detail.url);
     const type = getTypeFromUrl(detail.url);
 

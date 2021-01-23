@@ -56,7 +56,7 @@ const fetchMovie = async (film) => {
       },
     });
     omdb.data.crawl = res.data.opening_crawl;
-    return omdb.data;
+    return { ...omdb.data, ...res.data };
   } catch (err) {
     console.error('There was a problem fetching:', err);
   }

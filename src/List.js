@@ -28,7 +28,7 @@ export default function List() {
   useEffect(() => {
     const next = list[type]?.next;
     const url = next || `${SW_API_URL}/${type}`;
-    if (!next) getList(url);
+    if (!next && (!list[type] || list[type]?.items?.length === 0)) getList(url);
   }, [type]);
 
   if (type && list[type]?.items?.length === 0) {
@@ -49,15 +49,11 @@ export default function List() {
       </div>
       <div id="content">
         <ul>
-          {list[type]?.items?.map((person) => {
+          {list[type]?.items?.map((item) => {
             return (
               <li id="namelistli">
-                <Link
-                  id="namelist"
-                  key={person.id}
-                  to={`/${type}/${person.id}`}
-                >
-                  {person.id}. {person.name}
+                <Link id="namelist" key={item.id} to={`/${type}/${item.id}`}>
+                  {item.id}. {item.name || item.Title || item.title}
                 </Link>
               </li>
             );

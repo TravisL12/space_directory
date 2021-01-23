@@ -3,7 +3,14 @@ import { Switch, Route, Link } from 'react-router-dom';
 import './App.css';
 import Detail from './Detail/';
 import List from './List';
-import { PEOPLE, PLANETS, STARSHIPS, VEHICLES } from './constants';
+import {
+  PEOPLE,
+  PLANETS,
+  SPECIES,
+  STARSHIPS,
+  VEHICLES,
+  FILMS,
+} from './constants';
 
 const App = () => {
   return (
@@ -15,6 +22,8 @@ const App = () => {
           <Link to={`/${PLANETS}`}>Planets</Link>
           <Link to={`/${VEHICLES}`}>Vehicles</Link>
           <Link to={`/${STARSHIPS}`}>Starships</Link>
+          <Link to={`/${SPECIES}`}>Species</Link>
+          <Link to={`/${FILMS}`}>Films</Link>
         </div>
       </div>
       <Switch>

@@ -10,6 +10,9 @@ export default function Detail() {
   const params = useParams();
 
   const getDetails = async (details, attr, api) => {
+    if (!details[attr]) {
+      return Promise.resolve();
+    }
     const data = details[attr].map((url) => {
       return api(url);
     });
@@ -59,7 +62,7 @@ export default function Detail() {
   return (
     <div>
       <Link to="/">Back</Link>
-      <h2>Details for {`${personDetail.name}`}</h2>
+      <h2>Details for {`${personDetail.name || personDetail.title}`}</h2>
       <div id="content">
         <ul>
           {validAttributes.map((key) => (
