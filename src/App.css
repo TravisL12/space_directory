@@ -61,6 +61,9 @@ li {
 .content li div:first-child {
   width: 200px;
 }
+.content li div:nth-child(2) {
+  flex: 1;
+}
 .filmPoster {
   max-width: 100px;
   max-height: 100px;
