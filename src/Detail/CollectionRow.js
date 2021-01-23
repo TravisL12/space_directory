@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import '../App.css';
-import { fetchStarWars, isUrl } from '../helper';
+import { fetchStarWars, getIdFromUrl, getTypeFromUrl, isUrl } from '../helper';
 
 export default function CollectionRow({ datakey, value }) {
   const [detail, setDetail] = useState();
@@ -20,6 +21,14 @@ export default function CollectionRow({ datakey, value }) {
         {!detail
           ? 'loading'
           : detail.map((d, idx) => {
+              const id = getIdFromUrl(d.url);
+              const type = getTypeFromUrl(d.url);
+              const link =
+                id && type ? (
+                  <Link to={`/${type}/${id}`}>{d.name || d.Title}</Link>
+                ) : (
+                  d.name || d.Title
+                );
               return datakey === 'films' ? (
                 <img
                   key={`collection-row-${idx}`}
@@ -28,7 +37,7 @@ export default function CollectionRow({ datakey, value }) {
                   alt=""
                 />
               ) : (
-                <div key={`collection-row-${idx}`}>{d.name || d.Title}</div>
+                <div key={`collection-row-${idx}`}>{link}</div>
               );
             })}
       </div>

@@ -70,8 +70,17 @@ const isUrl = (valueString) => {
 };
 
 const getIdFromUrl = (url) => {
+  if (!url) return;
+
   const urlSplit = url.split('/').filter((x) => x);
   return urlSplit[urlSplit.length - 1];
 };
 
-export { fetchStarWars, fetchMovie, isUrl, getIdFromUrl };
+const getTypeFromUrl = (url) => {
+  if (!url) return;
+
+  const urlSplit = url.split('/').filter((x) => x);
+  return urlSplit[urlSplit.length - 2];
+};
+
+export { fetchStarWars, fetchMovie, isUrl, getIdFromUrl, getTypeFromUrl };
