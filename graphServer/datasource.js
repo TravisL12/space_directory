@@ -29,7 +29,7 @@ class WeatherAPI extends RESTDataSource {
     const sunset = new Date(weather.sys.sunset * 1000).toLocaleTimeString();
     return {
       id: weather.id || 0,
-      zip: zip,
+      zip,
       cityName: weather.name,
       longitude: weather.coord.lon,
       latitude: weather.coord.lat,
