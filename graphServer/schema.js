@@ -36,7 +36,7 @@ const typeDefs = gql`
 
   type Query {
     weather(zip: String!): Weather
-    starWarsPerson(id: String!): StarWarsPerson
+    person(id: String!): StarWarsPerson
   }
 `;
 

@@ -48,7 +48,7 @@ export default function List() {
         },
       });
     } catch (err) {
-      console.error('There was a problem fetching people:', err);
+      console.error(`There was a problem fetching ${type}:`, err);
     }
   };
 
