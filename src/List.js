@@ -26,6 +26,7 @@ export default function List() {
   };
 
   useEffect(() => {
+    if (!type) return;
     const next = list[type]?.next;
     const url = next || `${SW_API_URL}/${type}`;
     if (!next && (!list[type] || list[type]?.items?.length === 0)) getList(url);
@@ -51,7 +52,7 @@ export default function List() {
         <ul>
           {list[type]?.items?.map((item) => {
             return (
-              <li id="namelistli">
+              <li id="namelistli" key={item.id}>
                 <Link id="namelist" key={item.id} to={`/${type}/${item.id}`}>
                   {item.id}. {item.name || item.Title || item.title}
                 </Link>
