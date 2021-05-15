@@ -1,7 +1,6 @@
 const { gql } = require('apollo-server');
 
 const typeDefs = gql`
-  # weather schema
   type Weather {
     id: ID!
     zip: String!
@@ -23,9 +22,21 @@ const typeDefs = gql`
     humidity: Int!
     windSpeed: Float!
   }
-  # queries
+  type StarWarsPerson {
+    id: ID!
+    name: String
+    height: String
+    mass: String
+    hair_color: String
+    skin_color: String
+    eye_color: String
+    birth_year: String
+    gender: String
+  }
+
   type Query {
     weather(zip: String!): Weather
+    starWarsPerson(id: String!): StarWarsPerson
   }
 `;
 

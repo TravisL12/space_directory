@@ -1,14 +1,18 @@
-const { ApolloServer } = require('apollo-server');
-const typeDefs = require('./typeDefs');
-const resolvers = require('./resolver');
+//https://medium.com/swlh/no-idea-how-to-get-started-with-graphql-make-a-wrapper-of-a-rest-api-7159080dc318#a388
 
-const WeatherAPI = require('./datasource');
+const { ApolloServer } = require('apollo-server');
+const typeDefs = require('./schema');
+const resolvers = require('./resolvers');
+
+const WeatherAPI = require('./weatherApi');
+const StarWarsAPI = require('./starWarsApi');
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   dataSources: () => ({
     weatherAPI: new WeatherAPI(),
+    starWarsAPI: new StarWarsAPI(),
   }),
   engine: {
     variant: 'current',
