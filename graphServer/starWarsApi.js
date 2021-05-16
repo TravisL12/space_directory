@@ -22,7 +22,7 @@ class StarWarsAPI extends RESTDataSource {
       case PLANETS:
         return this.personReducer(response, id);
       case VEHICLES:
-        return this.personReducer(response, id);
+        return this.vehicleReducer(response, id);
       case STARSHIPS:
         return this.personReducer(response, id);
       case SPECIES:
@@ -43,6 +43,25 @@ class StarWarsAPI extends RESTDataSource {
       eye_color: person.eye_color,
       birth_year: person.birth_year,
       gender: person.gender,
+    };
+  }
+  vehicleReducer(vehicle, id) {
+    return {
+      id: id || 0,
+      name: vehicle.name,
+      model: vehicle.model,
+      manufacturer: vehicle.manufacturer,
+      cost_in_credits: vehicle.cost_in_credits,
+      length: vehicle.length,
+      max_atmosphering_speed: vehicle.max_atmosphering_speed,
+      crew: vehicle.crew,
+      passengers: vehicle.passengers,
+      cargo_capacity: vehicle.cargo_capacity,
+      consumables: vehicle.consumables,
+      vehicle_class: vehicle.vehicle_class,
+      created: vehicle.created,
+      edited: vehicle.edited,
+      url: vehicle.url,
     };
   }
 }

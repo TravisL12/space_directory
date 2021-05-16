@@ -30,7 +30,10 @@ export default function CollectionRow({ datakey, value }) {
                   d.name || d.Title
                 );
               return datakey === 'films' ? (
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <div
+                  key={idx}
+                  style={{ display: 'flex', flexDirection: 'column' }}
+                >
                   <img
                     key={`collection-row-${idx}`}
                     className="filmPoster"

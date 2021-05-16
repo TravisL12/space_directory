@@ -5,15 +5,16 @@ import CollectionRow from './CollectionRow';
 import { fetchMovie, fetchStarWars, isUrl, SW_API_URL } from '../helper';
 import { Link, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import { GET_STAR_WARS_PERSON } from '../queries';
+import { GET_STAR_WARS } from '../queries';
 
 export default function Detail() {
   const [personDetail, setPersonDetail] = useState();
   const params = useParams();
 
-  const { data, loading, error } = useQuery(GET_STAR_WARS_PERSON, {
-    variables: { id: params.id },
+  const { data, loading, error } = useQuery(GET_STAR_WARS, {
+    variables: { id: params.id, type: params.type },
   });
+  console.log(data, 'data', error, 'error');
 
   const getDetails = async (details, attr, api) => {
     if (!details[attr]) {

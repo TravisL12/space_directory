@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
-export const GET_STAR_WARS_PERSON = gql`
-  query GetPerson($id: String!) {
-    person(id: $id) {
+export const GET_STAR_WARS = gql`
+  query GetData($id: String!, $type: String!) {
+    starWars(id: $id, type: $type) {
       id
       name
       height

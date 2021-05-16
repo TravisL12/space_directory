@@ -16,7 +16,7 @@ export default function Row({ datakey, value }) {
 
   const getLink = () => {
     if (!detail) {
-      return <li>Loading</li>;
+      return <span>Loading</span>;
     }
     const id = getIdFromUrl(detail.url);
     const type = getTypeFromUrl(detail.url);

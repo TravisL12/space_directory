@@ -13,13 +13,26 @@ const typeDefs = gql`
     gender: String
   }
 
+  type StarWarsVehicle {
+    id: ID!
+    name: String!
+    model: String!
+    manufacturer: String!
+    cost_in_credits: String!
+    length: String!
+    max_atmosphering_speed: String!
+    crew: String!
+    passengers: String!
+    cargo_capacity: String!
+    consumables: String!
+    vehicle_class: String!
+    created: String!
+    edited: String!
+    url: String!
+  }
+
   type Query {
-    person(id: String!): StarWarsPerson
-    planets(id: String!): StarWarsPerson
-    vehicles(id: String!): StarWarsPerson
-    starships(id: String!): StarWarsPerson
-    species(id: String!): StarWarsPerson
-    films(id: String!): StarWarsPerson
+    starWars(id: String!, type: String!): StarWarsPerson
   }
 `;
 
