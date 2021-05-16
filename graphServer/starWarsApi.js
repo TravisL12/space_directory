@@ -8,6 +8,9 @@ const {
   FILMS,
 } = require('./serverConstants');
 
+// https://www.apollographql.com/blog/graphql-schema-stitching-8af23354ac37/
+// SHOWS how to fetch the Movie posters from 'http://www.omdbapi.com/' with a LINK
+
 class StarWarsAPI extends RESTDataSource {
   constructor() {
     super();

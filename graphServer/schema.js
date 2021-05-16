@@ -41,6 +41,13 @@ const typeDefs = gql`
     edited: String
   }
 
+  type Film {
+    id: ID!
+    title: String
+    year: String
+    plot: String
+  }
+
   type StarWarsResponse {
     people: StarWarsPerson
     vehicles: StarWarsVehicle
@@ -48,6 +55,7 @@ const typeDefs = gql`
 
   type Query {
     starWars(id: String!, type: String!): StarWarsResponse
+    starWarsFilm(title: String!): Film
   }
 `;
 

@@ -14,7 +14,7 @@ export default function Detail() {
   const { data, loading, error } = useQuery(GET_STAR_WARS, {
     variables: { id: params.id, type: params.type },
   });
-  console.log(data?.starWars?.[params.type], error);
+  console.log(data, error);
 
   const getDetails = async (details, attr, api) => {
     if (!details[attr]) {
