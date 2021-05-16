@@ -1,4 +1,12 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
+const {
+  PEOPLE,
+  PLANETS,
+  VEHICLES,
+  STARSHIPS,
+  SPECIES,
+  FILMS,
+} = require('./serverConstants');
 
 class StarWarsAPI extends RESTDataSource {
   constructor() {
@@ -6,9 +14,22 @@ class StarWarsAPI extends RESTDataSource {
     this.baseURL = 'https://swapi.dev/api';
   }
 
-  async getPerson({ id }) {
-    const response = await this.get(`/people/${id}`);
-    return this.personReducer(response, id);
+  async getData({ id, type }) {
+    const response = await this.get(`/${type}/${id}`);
+    switch (type) {
+      case PEOPLE:
+        return this.personReducer(response, id);
+      case PLANETS:
+        return this.personReducer(response, id);
+      case VEHICLES:
+        return this.personReducer(response, id);
+      case STARSHIPS:
+        return this.personReducer(response, id);
+      case SPECIES:
+        return this.personReducer(response, id);
+      case FILMS:
+        return this.personReducer(response, id);
+    }
   }
 
   personReducer(person, id) {

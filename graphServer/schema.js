@@ -1,27 +1,6 @@
 const { gql } = require('apollo-server');
 
 const typeDefs = gql`
-  type Weather {
-    id: ID!
-    zip: String!
-    cityName: String!
-    longitude: Float!
-    latitude: Float!
-    currentWeather: CurrentWeather!
-    sunrise: String!
-    sunset: String!
-  }
-  type CurrentWeather {
-    status: String!
-    description: String!
-    temp: Float!
-    feels_like: Float!
-    tempHigh: Float!
-    tempLow: Float!
-    pressure: Int!
-    humidity: Int!
-    windSpeed: Float!
-  }
   type StarWarsPerson {
     id: ID!
     name: String
@@ -35,8 +14,12 @@ const typeDefs = gql`
   }
 
   type Query {
-    weather(zip: String!): Weather
     person(id: String!): StarWarsPerson
+    planets(id: String!): StarWarsPerson
+    vehicles(id: String!): StarWarsPerson
+    starships(id: String!): StarWarsPerson
+    species(id: String!): StarWarsPerson
+    films(id: String!): StarWarsPerson
   }
 `;
 

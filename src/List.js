@@ -2,35 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import './App.css';
 import { SW_API_URL, fetchStarWars, getIdFromUrl } from './helper';
-import { gql, useQuery } from '@apollo/client';
-
-const GET_WEATHER = gql`
-  query GetWeather($zip: String!) {
-    weather(zip: $zip) {
-      cityName
-      zip
-      sunrise
-      sunset
-      longitude
-      latitude
-      currentWeather {
-        temp
-        status
-        tempHigh
-        tempLow
-      }
-    }
-  }
-`;
 
 export default function List() {
-  const [zip, setZip] = useState('94110');
-  const [nextZip, setNextZip] = useState('');
-
-  const { data, loading, error } = useQuery(GET_WEATHER, {
-    variables: { zip },
-  });
-  console.log(data, 'data');
   const { type } = useParams();
   const [list, setList] = useState({ [type]: { items: [] } });
   const getList = async (url) => {
