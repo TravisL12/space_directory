@@ -6,30 +6,40 @@ export const GET_STAR_WARS = gql`
       people {
         id
         name
+        birth_year
+        eye_color
+        gender
+        hair_color
         height
         mass
-        hair_color
         skin_color
-        eye_color
-        birth_year
-        gender
+        homeworld
+        films
+        species
+        starships
+        vehicles
+        url
+        created
+        edited
       }
       vehicles {
         id
         name
         model
+        vehicle_class
         manufacturer
-        cost_in_credits
         length
-        max_atmosphering_speed
+        cost_in_credits
         crew
         passengers
+        max_atmosphering_speed
         cargo_capacity
         consumables
-        vehicle_class
+        films
+        pilots
+        url
         created
         edited
-        url
       }
     }
   }
