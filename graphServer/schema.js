@@ -31,8 +31,13 @@ const typeDefs = gql`
     url: String!
   }
 
+  type StarWarsResponse {
+    people: StarWarsPerson
+    vehicles: StarWarsVehicle
+  }
+
   type Query {
-    starWars(id: String!, type: String!): StarWarsPerson
+    starWars(id: String!, type: String!): StarWarsResponse
   }
 `;
 

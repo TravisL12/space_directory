@@ -34,34 +34,38 @@ class StarWarsAPI extends RESTDataSource {
 
   personReducer(person, id) {
     return {
-      id: id || 0,
-      name: person.name,
-      height: person.height,
-      mass: person.mass,
-      hair_color: person.hair_color,
-      skin_color: person.skin_color,
-      eye_color: person.eye_color,
-      birth_year: person.birth_year,
-      gender: person.gender,
+      people: {
+        id: id || 0,
+        name: person.name,
+        height: person.height,
+        mass: person.mass,
+        hair_color: person.hair_color,
+        skin_color: person.skin_color,
+        eye_color: person.eye_color,
+        birth_year: person.birth_year,
+        gender: person.gender,
+      },
     };
   }
   vehicleReducer(vehicle, id) {
     return {
-      id: id || 0,
-      name: vehicle.name,
-      model: vehicle.model,
-      manufacturer: vehicle.manufacturer,
-      cost_in_credits: vehicle.cost_in_credits,
-      length: vehicle.length,
-      max_atmosphering_speed: vehicle.max_atmosphering_speed,
-      crew: vehicle.crew,
-      passengers: vehicle.passengers,
-      cargo_capacity: vehicle.cargo_capacity,
-      consumables: vehicle.consumables,
-      vehicle_class: vehicle.vehicle_class,
-      created: vehicle.created,
-      edited: vehicle.edited,
-      url: vehicle.url,
+      vehicles: {
+        id: id || 0,
+        name: vehicle.name,
+        model: vehicle.model,
+        manufacturer: vehicle.manufacturer,
+        cost_in_credits: vehicle.cost_in_credits,
+        length: vehicle.length,
+        max_atmosphering_speed: vehicle.max_atmosphering_speed,
+        crew: vehicle.crew,
+        passengers: vehicle.passengers,
+        cargo_capacity: vehicle.cargo_capacity,
+        consumables: vehicle.consumables,
+        vehicle_class: vehicle.vehicle_class,
+        created: vehicle.created,
+        edited: vehicle.edited,
+        url: vehicle.url,
+      },
     };
   }
 }
