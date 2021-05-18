@@ -5,14 +5,14 @@ const typeDefs = require('./schema');
 const resolvers = require('./resolvers');
 
 const StarWarsAPI = require('./starWarsApi');
-const StarWarsFilmsAPI = require('./starWarsFilmsApi');
+const OmdbAPI = require('./omdbAPI');
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   dataSources: () => ({
     starWarsAPI: new StarWarsAPI(),
-    starWarsFilmsAPI: new StarWarsFilmsAPI(),
+    omdbAPI: new OmdbAPI(),
   }),
   engine: {
     variant: 'current',

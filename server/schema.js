@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server');
 
 const typeDefs = gql`
-  type StarWarsPerson {
+  type StarWarsPeople {
     id: ID!
     name: String
     birth_year: String
@@ -41,21 +41,36 @@ const typeDefs = gql`
     edited: String
   }
 
-  type Film {
+  type StarWarsFilm {
+    id: ID!
+    title: String
+    episode_id: Int
+    opening_crawl: String
+    director: String
+    producer: String
+    release_date: String
+    species: [String]
+    starships: [String]
+    vehicles: [String]
+    characters: [String]
+    planets: [String]
+    url: String
+    created: String
+    edited: String
+  }
+
+  type OmdbFilm {
     id: ID!
     title: String
     year: String
     plot: String
   }
 
-  type StarWarsResponse {
-    people: StarWarsPerson
-    vehicles: StarWarsVehicle
-  }
-
   type Query {
-    starWars(id: String!, type: String!): StarWarsResponse
-    starWarsFilm(title: String!): Film
+    starWarsPeople(id: String!): StarWarsPeople
+    starWarsVehicle(id: String!): StarWarsVehicle
+    starWarsFilm(id: String!): StarWarsFilm
+    omdbFilm(title: String!): OmdbFilm
   }
 `;
 
