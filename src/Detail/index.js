@@ -19,9 +19,9 @@ import {
   FILMS,
 } from '../constants';
 
-const useFetchGraph = (params) => {
+const useFetchGraph = ({ id, type }) => {
   let query;
-  switch (params.type) {
+  switch (type) {
     case PEOPLE:
       query = GET_STAR_WARS_PEOPLE;
       break;
@@ -43,7 +43,7 @@ const useFetchGraph = (params) => {
   }
 
   return useQuery(query, {
-    variables: { id: params.id },
+    variables: { id },
   });
 };
 
