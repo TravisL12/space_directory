@@ -5,53 +5,15 @@ import CollectionRow from './CollectionRow';
 import { fetchMovie, fetchStarWars, isUrl, SW_API_URL } from '../helper';
 import { Link, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import {
-  GET_STAR_WARS_FILM,
-  GET_STAR_WARS_PEOPLE,
-  GET_STAR_WARS_VEHICLE,
-} from '../queries';
-import {
-  PEOPLE,
-  PLANETS,
-  VEHICLES,
-  STARSHIPS,
-  SPECIES,
-  FILMS,
-} from '../constants';
-
-const useFetchGraph = ({ id, type }) => {
-  let query;
-  switch (type) {
-    case PEOPLE:
-      query = GET_STAR_WARS_PEOPLE;
-      break;
-    case PLANETS:
-      query = GET_STAR_WARS_PEOPLE;
-      break;
-    case VEHICLES:
-      query = GET_STAR_WARS_VEHICLE;
-      break;
-    case STARSHIPS:
-      query = GET_STAR_WARS_PEOPLE;
-      break;
-    case SPECIES:
-      query = GET_STAR_WARS_PEOPLE;
-      break;
-    case FILMS:
-      query = GET_STAR_WARS_FILM;
-      break;
-  }
-
-  return useQuery(query, {
-    variables: { id },
-  });
-};
+import { STAR_WARS_QUERIES } from '../queries';
 
 export default function Detail() {
   const [personDetail, setPersonDetail] = useState();
   const params = useParams();
 
-  const { data, loading, error } = useFetchGraph(params);
+  const { data, loading, error } = useQuery(STAR_WARS_QUERIES[params.type], {
+    variables: { id: params.id },
+  });
   console.log(data, 'data');
 
   const getDetails = async (details, attr, api) => {

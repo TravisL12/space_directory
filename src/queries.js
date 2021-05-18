@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client';
+import { PEOPLE, VEHICLES, FILMS } from './constants';
 
-export const GET_STAR_WARS_PEOPLE = gql`
+const GET_STAR_WARS_PEOPLE = gql`
   query GetData($id: String!) {
     starWarsPeople(id: $id) {
       id
@@ -23,7 +24,7 @@ export const GET_STAR_WARS_PEOPLE = gql`
     }
   }
 `;
-export const GET_STAR_WARS_VEHICLE = gql`
+const GET_STAR_WARS_VEHICLE = gql`
   query GetData($id: String!) {
     starWarsVehicle(id: $id) {
       id
@@ -46,7 +47,7 @@ export const GET_STAR_WARS_VEHICLE = gql`
     }
   }
 `;
-export const GET_STAR_WARS_FILM = gql`
+const GET_STAR_WARS_FILM = gql`
   query GetData($id: String!) {
     starWarsFilm(id: $id) {
       id
@@ -67,3 +68,9 @@ export const GET_STAR_WARS_FILM = gql`
     }
   }
 `;
+
+export const STAR_WARS_QUERIES = {
+  [PEOPLE]: GET_STAR_WARS_PEOPLE,
+  [VEHICLES]: GET_STAR_WARS_VEHICLE,
+  [FILMS]: GET_STAR_WARS_FILM,
+};
