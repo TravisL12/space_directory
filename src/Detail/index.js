@@ -17,32 +17,42 @@ import {
   STARSHIPS,
   SPECIES,
   FILMS,
-} from '../../server/constants';
+} from '../constants';
+
+const useFetchGraph = (params) => {
+  let query;
+  switch (params.type) {
+    case PEOPLE:
+      query = GET_STAR_WARS_PEOPLE;
+      break;
+    case PLANETS:
+      query = GET_STAR_WARS_PEOPLE;
+      break;
+    case VEHICLES:
+      query = GET_STAR_WARS_VEHICLE;
+      break;
+    case STARSHIPS:
+      query = GET_STAR_WARS_PEOPLE;
+      break;
+    case SPECIES:
+      query = GET_STAR_WARS_PEOPLE;
+      break;
+    case FILMS:
+      query = GET_STAR_WARS_FILM;
+      break;
+  }
+
+  return useQuery(query, {
+    variables: { id: params.id },
+  });
+};
 
 export default function Detail() {
   const [personDetail, setPersonDetail] = useState();
   const params = useParams();
 
-  let query;
-  switch (type) {
-    case PEOPLE:
-      query = GET_STAR_WARS_PEOPLE;
-    case PLANETS:
-      query = GET_STAR_WARS_PEOPLE;
-    case VEHICLES:
-      query = GET_STAR_WARS_VEHICLE;
-    case STARSHIPS:
-      query = GET_STAR_WARS_PEOPLE;
-    case SPECIES:
-      query = GET_STAR_WARS_PEOPLE;
-    case FILMS:
-      query = GET_STAR_WARS_FILM;
-  }
-
-  const { data, loading, error } = useQuery(query, {
-    variables: { id: params.id },
-  });
-  console.log(data, error);
+  const { data, loading, error } = useFetchGraph(params);
+  console.log(data, 'data');
 
   const getDetails = async (details, attr, api) => {
     if (!details[attr]) {
@@ -83,7 +93,7 @@ export default function Detail() {
     loadDetails();
   }, [params]);
 
-  if (!personDetail) {
+  if (!personDetail || loading) {
     return 'Loading';
   }
 

@@ -22,15 +22,15 @@ class StarWarsAPI extends RESTDataSource {
     const response = await this.get(`/${PEOPLE}/${id}`);
     return this.peopleReducer(response, id);
   }
-  async getPlanets({ id }) {
+  async getPlanet({ id }) {
     const response = await this.get(`/${PLANETS}/${id}`);
     return this.peopleReducer(response, id);
   }
-  async getVehicles({ id }) {
+  async getVehicle({ id }) {
     const response = await this.get(`/${VEHICLES}/${id}`);
     return this.vehicleReducer(response, id);
   }
-  async getStarships({ id }) {
+  async getStarship({ id }) {
     const response = await this.get(`/${STARSHIPS}/${id}`);
     return this.peopleReducer(response, id);
   }
@@ -38,7 +38,7 @@ class StarWarsAPI extends RESTDataSource {
     const response = await this.get(`/${SPECIES}/${id}`);
     return this.peopleReducer(response, id);
   }
-  async getFilms({ id }) {
+  async getFilm({ id }) {
     const response = await this.get(`/${FILMS}/${id}`);
     return this.filmReducer(response, id);
   }
