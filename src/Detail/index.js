@@ -5,14 +5,42 @@ import CollectionRow from './CollectionRow';
 import { fetchMovie, fetchStarWars, isUrl, SW_API_URL } from '../helper';
 import { Link, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import { GET_STAR_WARS } from '../queries';
+import {
+  GET_STAR_WARS_FILM,
+  GET_STAR_WARS_PEOPLE,
+  GET_STAR_WARS_VEHICLE,
+} from '../queries';
+import {
+  PEOPLE,
+  PLANETS,
+  VEHICLES,
+  STARSHIPS,
+  SPECIES,
+  FILMS,
+} from '../../server/constants';
 
 export default function Detail() {
   const [personDetail, setPersonDetail] = useState();
   const params = useParams();
 
-  const { data, loading, error } = useQuery(GET_STAR_WARS, {
-    variables: { id: params.id, type: params.type },
+  let query;
+  switch (type) {
+    case PEOPLE:
+      query = GET_STAR_WARS_PEOPLE;
+    case PLANETS:
+      query = GET_STAR_WARS_PEOPLE;
+    case VEHICLES:
+      query = GET_STAR_WARS_VEHICLE;
+    case STARSHIPS:
+      query = GET_STAR_WARS_PEOPLE;
+    case SPECIES:
+      query = GET_STAR_WARS_PEOPLE;
+    case FILMS:
+      query = GET_STAR_WARS_FILM;
+  }
+
+  const { data, loading, error } = useQuery(query, {
+    variables: { id: params.id },
   });
   console.log(data, error);
 

@@ -18,22 +18,29 @@ class StarWarsAPI extends RESTDataSource {
     this.baseURL = SWAPI_URL;
   }
 
-  async getData({ id, type }) {
-    const response = await this.get(`/${type}/${id}`);
-    switch (type) {
-      case PEOPLE:
-        return this.peopleReducer(response, id);
-      case PLANETS:
-        return this.peopleReducer(response, id);
-      case VEHICLES:
-        return this.vehicleReducer(response, id);
-      case STARSHIPS:
-        return this.peopleReducer(response, id);
-      case SPECIES:
-        return this.peopleReducer(response, id);
-      case FILMS:
-        return this.filmReducer(response, id);
-    }
+  async getPeople({ id }) {
+    const response = await this.get(`/${PEOPLE}/${id}`);
+    return this.peopleReducer(response, id);
+  }
+  async getPlanets({ id }) {
+    const response = await this.get(`/${PLANETS}/${id}`);
+    return this.peopleReducer(response, id);
+  }
+  async getVehicles({ id }) {
+    const response = await this.get(`/${VEHICLES}/${id}`);
+    return this.vehicleReducer(response, id);
+  }
+  async getStarships({ id }) {
+    const response = await this.get(`/${STARSHIPS}/${id}`);
+    return this.peopleReducer(response, id);
+  }
+  async getSpecies({ id }) {
+    const response = await this.get(`/${SPECIES}/${id}`);
+    return this.peopleReducer(response, id);
+  }
+  async getFilms({ id }) {
+    const response = await this.get(`/${FILMS}/${id}`);
+    return this.filmReducer(response, id);
   }
 
   peopleReducer(person, id) {

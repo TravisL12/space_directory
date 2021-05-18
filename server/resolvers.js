@@ -1,20 +1,18 @@
-const { PEOPLE, VEHICLES, FILMS } = require('./constants');
-
 module.exports = {
   Query: {
     starWarsPeople: (_, { id }, { dataSources }) => {
       if (id) {
-        return dataSources.starWarsAPI.getData({ id, type: PEOPLE });
+        return dataSources.starWarsAPI.getData({ id });
       }
     },
     starWarsVehicle: (_, { id }, { dataSources }) => {
       if (id) {
-        return dataSources.starWarsAPI.getData({ id, type: VEHICLES });
+        return dataSources.starWarsAPI.getData({ id });
       }
     },
     starWarsFilm: (_, { id }, { dataSources }) => {
       if (id) {
-        return dataSources.starWarsAPI.getData({ id, type: FILMS });
+        return dataSources.starWarsAPI.getData({ id });
       }
     },
     omdbFilm: (_, { title }, { dataSources }) =>
