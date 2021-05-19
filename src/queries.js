@@ -24,6 +24,9 @@ const GET_STAR_WARS_PEOPLE = gql`
       films {
         title
         url
+        omdbInfo {
+          poster
+        }
       }
       species
       starships
