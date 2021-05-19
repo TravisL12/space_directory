@@ -23,15 +23,17 @@ const GET_STAR_WARS_PEOPLE = gql`
       homeworld
       films {
         title
+        url
       }
       species
       starships
       vehicles {
         name
+        url
       }
       url
-      created
-      edited
+      # created
+      # edited
     }
   }
 `;
@@ -53,8 +55,8 @@ const GET_STAR_WARS_VEHICLE = gql`
       films
       pilots
       url
-      created
-      edited
+      # created
+      # edited
     }
   }
 `;
@@ -74,8 +76,8 @@ const GET_STAR_WARS_FILM = gql`
       characters
       planets
       url
-      created
-      edited
+      # created
+      # edited
     }
   }
 `;
