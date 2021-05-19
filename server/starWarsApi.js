@@ -42,7 +42,8 @@ class StarWarsAPI extends RESTDataSource {
     const response = await this.get(`/${FILMS}/${id}`);
     return this.filmReducer(response, id);
   }
-  async getFilms({ urls }) {
+  async getFilms(data) {
+    const { urls } = data;
     const ids = urls.map((url) => {
       const split = url.split('/').filter((x) => x);
       return split[split.length - 1];

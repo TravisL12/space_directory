@@ -6,9 +6,11 @@ module.exports = {
       dataSources.starWarsAPI.getVehicle({ id }),
     starWarsFilm: (_, { id }, { dataSources }) =>
       dataSources.starWarsAPI.getFilm({ id }),
-    starWarsFilms: (_, { urls }, { dataSources }) =>
-      dataSources.starWarsAPI.getFilms({ urls }),
     omdbFilm: (_, { title }, { dataSources }) =>
       dataSources.omdbAPI.getData({ title }),
+  },
+  StarWarsPeople: {
+    films: ({ films }, _, { dataSources }) =>
+      dataSources.starWarsAPI.getFilms({ urls: films }),
   },
 };

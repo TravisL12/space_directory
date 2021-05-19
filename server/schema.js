@@ -12,7 +12,7 @@ const typeDefs = gql`
     mass: String
     skin_color: String
     homeworld: String
-    films: [String]
+    films: [StarWarsFilm]
     species: [String]
     starships: [String]
     vehicles: [String]
