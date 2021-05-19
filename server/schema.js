@@ -15,7 +15,7 @@ const typeDefs = gql`
     films: [StarWarsFilm]
     species: [String]
     starships: [String]
-    vehicles: [String]
+    vehicles: [StarWarsVehicle]
     url: String
     created: String
     edited: String
@@ -70,7 +70,6 @@ const typeDefs = gql`
     starWarsPeople(id: String!): StarWarsPeople
     starWarsVehicle(id: String!): StarWarsVehicle
     starWarsFilm(id: String!): StarWarsFilm
-    starWarsFilms(urls: [String]): [StarWarsFilm]
     omdbFilm(title: String!): OmdbFilm
   }
 `;

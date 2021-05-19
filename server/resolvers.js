@@ -12,5 +12,7 @@ module.exports = {
   StarWarsPeople: {
     films: ({ films }, _, { dataSources }) =>
       dataSources.starWarsAPI.getFilms({ urls: films }),
+    vehicles: ({ vehicles }, _, { dataSources }) =>
+      dataSources.starWarsAPI.getVehicles({ urls: vehicles }),
   },
 };

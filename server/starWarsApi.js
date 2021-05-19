@@ -26,8 +26,9 @@ class StarWarsAPI extends RESTDataSource {
     const response = await this.get(`/${PLANETS}/${id}`);
     return this.peopleReducer(response, id);
   }
-  async getVehicle({ id }) {
-    const response = await this.get(`/${VEHICLES}/${id}`);
+  async getVehicle({ id, url }) {
+    const uri = url ? url : `/${VEHICLES}/${id}`;
+    const response = await this.get(uri);
     return this.vehicleReducer(response, id);
   }
   async getStarship({ id }) {
@@ -38,19 +39,22 @@ class StarWarsAPI extends RESTDataSource {
     const response = await this.get(`/${SPECIES}/${id}`);
     return this.peopleReducer(response, id);
   }
-  async getFilm({ id }) {
-    const response = await this.get(`/${FILMS}/${id}`);
-    return this.filmReducer(response, id);
+  async getFilm({ id, url }) {
+    const uri = url ? url : `/${FILMS}/${id}`;
+    const response = await this.get(uri);
+    return this.filmReducer(response);
+  }
+  async getVehicles(data) {
+    const { urls } = data;
+    const requests = urls.map((url) => this.getVehicle({ url }));
+    const response = await Promise.all(requests);
+    return response;
   }
   async getFilms(data) {
     const { urls } = data;
-    const ids = urls.map((url) => {
-      const split = url.split('/').filter((x) => x);
-      return split[split.length - 1];
-    });
-    const requests = ids.map((id) => this.get(`/${FILMS}/${id}`));
+    const requests = urls.map((url) => this.getFilm({ url }));
     const response = await Promise.all(requests);
-    return response.map((resp, idx) => this.filmReducer(resp, ids[idx]));
+    return response;
   }
 
   peopleReducer(person, id) {
@@ -95,9 +99,8 @@ class StarWarsAPI extends RESTDataSource {
       edited: vehicle.edited,
     };
   }
-  filmReducer(film, id) {
+  filmReducer(film) {
     return {
-      id: id || 0,
       title: film.title,
       episode_id: film.episode_id,
       opening_crawl: film.opening_crawl,
