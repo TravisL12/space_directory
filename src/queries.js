@@ -1,5 +1,12 @@
 import { gql } from '@apollo/client';
-import { PEOPLE, VEHICLES, FILMS } from './constants';
+import {
+  PEOPLE,
+  VEHICLES,
+  FILMS,
+  PLANETS,
+  STARSHIPS,
+  SPECIES,
+} from './constants';
 
 const GET_STAR_WARS_PEOPLE = gql`
   query GetData($id: String!) {
@@ -14,10 +21,14 @@ const GET_STAR_WARS_PEOPLE = gql`
       mass
       skin_color
       homeworld
-      films
+      films {
+        title
+      }
       species
       starships
-      vehicles
+      vehicles {
+        name
+      }
       url
       created
       edited
@@ -73,4 +84,7 @@ export const STAR_WARS_QUERIES = {
   [PEOPLE]: GET_STAR_WARS_PEOPLE,
   [VEHICLES]: GET_STAR_WARS_VEHICLE,
   [FILMS]: GET_STAR_WARS_FILM,
+  [PLANETS]: GET_STAR_WARS_PEOPLE,
+  [STARSHIPS]: GET_STAR_WARS_PEOPLE,
+  [SPECIES]: GET_STAR_WARS_PEOPLE,
 };
