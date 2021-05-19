@@ -3,7 +3,7 @@ import axios from 'axios';
 export const SW_API_URL = 'https://swapi.dev/api';
 const OMDB_API_URL = 'http://www.omdbapi.com/';
 
-// const {s
+// const {
 //   birth_year,
 //   created,
 //   edited,
