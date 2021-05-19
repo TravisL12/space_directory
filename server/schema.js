@@ -57,6 +57,7 @@ const typeDefs = gql`
     url: String
     created: String
     edited: String
+    omdbInfo: OmdbFilm
   }
 
   type OmdbFilm {
@@ -64,6 +65,7 @@ const typeDefs = gql`
     title: String
     year: String
     plot: String
+    poster: String
   }
 
   type Query {

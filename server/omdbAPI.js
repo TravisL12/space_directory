@@ -21,6 +21,7 @@ class OmdbAPI extends RESTDataSource {
       title: film.Title,
       year: film.Year,
       plot: film.Plot,
+      poster: film.Poster,
     };
   }
 }

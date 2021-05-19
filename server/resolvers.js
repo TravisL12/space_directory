@@ -15,4 +15,8 @@ module.exports = {
     vehicles: ({ vehicles }, _, { dataSources }) =>
       dataSources.starWarsAPI.getVehicles({ urls: vehicles }),
   },
+  StarWarsFilm: {
+    omdbInfo: ({ title }, _, { dataSources }) =>
+      dataSources.omdbAPI.getData({ title }),
+  },
 };
