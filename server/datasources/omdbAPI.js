@@ -1,5 +1,5 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
-const { OMDB_API } = require('./constants');
+const { OMDB_API } = require('../constants');
 
 // https://www.apollographql.com/blog/graphql-schema-stitching-8af23354ac37/
 // SHOWS how to fetch the Movie posters from 'http://www.omdbapi.com/' with a LINK
